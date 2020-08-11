@@ -4,11 +4,13 @@ const db = require('./database.js');
 module.exports = {
 
   getHouseInfoByHostelID(id, callback) {
+    console.log(id, 'id in DB query')
     const queryStr = `SELECT * FROM hostels WHERE (id = ${id})`;
     db.query(queryStr, (err, data) => {
       if (err) {
         callback(err, null);
       } else {
+        console.log(data, 'data in db callback');
         callback(null, data);
       }
     });
