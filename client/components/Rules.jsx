@@ -10,11 +10,9 @@ const Rules = ({
   <div>
     <div>
       <h2>
-        {' '}
         <FaClipboardList />
         {' '}
         Policies
-        {' '}
       </h2>
       <div>
         <FiArrowRight />
@@ -57,6 +55,7 @@ const Rules = ({
       <div>
         <h3>
           <GrPin />
+          {' '}
           Things to Note
         </h3>
       </div>

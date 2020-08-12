@@ -55,16 +55,18 @@ app.get('/house/:id/rules', (req, res) => {
   });
 });
 
-app.get('/house/:id/full_listing', (req, res) => {
-  query.getHouseFullListing(req.params.id, (err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.send(data);
-    }
-  });
-});
+// app.get('/house/:id/full_listing', (req, res) => {
+//   query.getHouseFullListing(req.params.id, (err, data) => {
+//     if (err) {
+//       res.sendStatus(500);
+//     } else {
+//       res.send(data);
+//     }
+//   });
+// });
 
-app.listen(port, () => {
-  // console.log(`Example app listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   // console.log(`Example app listening at http://localhost:${port}`);
+// });
+
+module.exports = app;

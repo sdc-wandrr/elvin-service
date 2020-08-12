@@ -16,9 +16,9 @@ const Headline = ({
     <div>
       <h1>
         <div className="title">
-          {
-            name
-          }
+          { name }
+          {' '}
+          Hostel
         </div>
       </h1>
       <div className="address">

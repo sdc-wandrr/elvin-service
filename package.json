@@ -14,8 +14,16 @@
   },
   "scripts": {
     "build": "webpack -d --watch",
-    "start": "nodemon server/index.js",
-    "seed": "node server/database/seed.js"
+    "start": "nodemon server/start.js",
+    "seed": "node server/database/seed.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -49,6 +57,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "jest": "^26.2.2",
     "nodemon": "^2.0.4",
+    "supertest": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev": "^1.1.1"
