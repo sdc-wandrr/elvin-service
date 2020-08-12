@@ -13,7 +13,7 @@
     "url": "git://github.com/hrr47-karev/property-info-service"
   },
   "scripts": {
-    "build": "webpack -d --watch",
+    "build": "webpack -config webpack.config.js --watch",
     "start": "nodemon server/index.js",
     "seed": "node server/database/seed.js"
   },
@@ -23,8 +23,11 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "mysql": "^2.18.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-icons": "^3.10.0",
+    "react-map-gl": "^5.2.7",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {

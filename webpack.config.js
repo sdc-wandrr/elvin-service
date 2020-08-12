@@ -1,32 +1,24 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, 'client/index.jsx'),
+  entry: './client/index.jsx',
   output: {
-    path: path.join(__dirname, 'public/dist'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
+  mode: 'development',
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        include: path.join(__dirname, '/client'),
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/react'],
-        },
-      },
-      {
-        test: /\.css$/i,
-        exclude: /node_modules/,
-        use: ['style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              module: true,
-            },
+        test: /\.m?jsx$/,
+        include: path.resolve(__dirname, 'client'),
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react'],
           },
-        ],
+        },
       },
     ],
   },
