@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS house_info;
+CREATE DATABASE IF NOT EXISTS hostileworld;
 
-USE house_info;
+USE hostileworld;
 
 DROP TABLE IF EXISTS hostels;
 

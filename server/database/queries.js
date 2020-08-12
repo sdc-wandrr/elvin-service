@@ -14,8 +14,8 @@ module.exports = {
     });
   },
 
-  getRulesByID(id, callback) {
-    const queryStr = null; // WRITE QUERYSTRING FOR GETTING ALL RULES HERE;
+  getHouseRules(id, callback) {
+    const queryStr = `SELECT * from rules r INNER JOIN full_listing fl ON fl.name_id = ${id} AND r.id = fl.rules_id`;
     db.query(queryStr, (err, data) => {
       if (err) {
         callback(err, null);
@@ -25,8 +25,8 @@ module.exports = {
     });
   },
 
-  getAddressByID(id, callback) {
-    const queryStr = null; // WRITE QUERYSTRING FOR GETTING ADDRESS HERE;
+  getHouseAddress(id, callback) {
+    const queryStr = `SELECT * from addresses a INNER JOIN full_listing fl ON fl.name_id = ${id} AND a.id = fl.addresses_id`;
     db.query(queryStr, (err, data) => {
       if (err) {
         callback(err, null);
@@ -36,8 +36,8 @@ module.exports = {
     });
   },
 
-  getDescriptionByID(id, callback) {
-    const queryStr = null; // WRITE QUERYSTRING FOR GETTING ALL DESCRIPTION HERE;
+  getHouseDescription(id, callback) {
+    const queryStr = `SELECT * from descriptions d INNER JOIN full_listing fl ON fl.name_id = ${id} AND d.id = fl.descriptions_id`;
     db.query(queryStr, (err, data) => {
       if (err) {
         callback(err, null);
@@ -46,16 +46,4 @@ module.exports = {
       }
     });
   },
-
-  getFullListingByID(id, callback) {
-    const queryStr = null; // WRITE QUERYSTRING FOR GETTING FULLLISTING HERE;
-    db.query(queryStr, (err, data) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, data);
-      }
-    });
-  },
-
 };
