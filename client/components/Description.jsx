@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Description = ({
-  editorial, description
+  editorial, description,
 }) => (
   <div className="description-container">
     <div className="editorial">

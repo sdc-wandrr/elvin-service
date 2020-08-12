@@ -12,7 +12,7 @@ module.exports = {
       {
         test: /\.m?jsx$/,
         include: path.resolve(__dirname, 'client'),
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
