@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import Headline from './Headline.jsx';
-import Map from './Map.jsx';
+import MapContainer from './MapContainer.jsx';
 import Rules from './Rules.jsx';
 import Description from './Description.jsx';
 
@@ -14,8 +14,8 @@ class App extends React.Component {
       street: '',
       city: '',
       country: '',
-      latitude: '',
-      longitude: '',
+      location: {},
+      zoomLevel: 10,
       description: '',
       editorial: '',
       checkInStart: '',
@@ -59,8 +59,11 @@ class App extends React.Component {
           street: data.street_address,
           city: data.city,
           country: data.country,
-          latitude: data.latitude,
-          longitude: data.longitude,
+          location: {
+            address: `${data.street_address}, ${data.city}, ${data.country}`,
+            lat: data.latitude,
+            lng: data.longitude,
+          },
         });
       })
       .catch((err) => err);
@@ -137,7 +140,7 @@ class App extends React.Component {
           taxesIncluded={property.taxesIncluded}
           importantNotes={property.importantNotes}
         />
-        {/* <Map latitude={property.latitude} longitude={property.longitude} /> */}
+        <MapContainer location={property.location} zoomLevel={17} />
       </div>
     );
   }

@@ -72,3 +72,7 @@ it('gets the hostel description when given a hostel_id', async (done) => {
   await expect(description.description_text).toBeDefined();
   await done();
 });
+
+it('receives an error when given an invalid id', async(done) => {
+
+})

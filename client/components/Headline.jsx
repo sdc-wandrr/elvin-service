@@ -5,9 +5,8 @@ import {
   FaRegThumbsUp,
   FaTrophy,
 } from 'react-icons/fa';
-import {
-  MdLocationOn,
-} from 'react-icons/md';
+import { MdLocationOn } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 const Headline = ({
   name, street, city, country,
@@ -48,5 +47,19 @@ const Headline = ({
     </h1>
   </div>
 );
+
+Headline.propTypes = {
+  name: PropTypes.string,
+  street: PropTypes.string,
+  city: PropTypes.string,
+  country: PropTypes.string,
+};
+
+Headline.defaultProps = {
+  name: '',
+  street: '',
+  city: '',
+  country: '',
+};
 
 export default Headline;

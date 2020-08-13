@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 const Description = ({
   editorial, description,
@@ -12,5 +13,15 @@ const Description = ({
     </div>
   </div>
 );
+
+Description.propTypes = {
+  editorial: PropTypes.string,
+  description: PropTypes.string,
+};
+
+Description.defaultProps = {
+  editorial: '',
+  description: '',
+};
 
 export default Description;

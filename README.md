@@ -1,23 +1,18 @@
-# Project Name
+# HostileWorld Property Info Component
 
-> Project description
+Contains a fullstack React module with components for displaying a hostel's description, a map of it's location, and the hostel's specific rules and policies.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/hrr47-karev/imageCarousel
+  - https://github.com/hrr47-karev/Reviews-Service
+  - https://github.com/hrr47-karev/AvailabilityComponent
+  - https://github.com/hrr47-karev/property-info-proxy
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
-
-## Usage
-
-> Some usage instructions
 
 ## Requirements
 
@@ -36,4 +31,3 @@ From within the root directory:
 npm install -g webpack
 npm install
 ```
-
