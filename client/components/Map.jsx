@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GMAPS_API_KEY = // 'INSERT API_KEY HERE';
+const GMAPS_API_KEY = ''; // INSERT API_KEY HERE
 
 const Map = ({ latitude, longitude }) => (
   <iframe
