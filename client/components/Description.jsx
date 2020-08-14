@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-const Description = ({
-  editorial, description,
-}) => (
+const Description = ({ editorial, description }) => (
   <div className="description-container">
     <div className="editorial">
       <p>{editorial}</p>
@@ -15,13 +13,8 @@ const Description = ({
 );
 
 Description.propTypes = {
-  editorial: PropTypes.string,
-  description: PropTypes.string,
-};
-
-Description.defaultProps = {
-  editorial: '',
-  description: '',
+  editorial: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default Description;

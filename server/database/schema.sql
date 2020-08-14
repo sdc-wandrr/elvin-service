@@ -34,6 +34,7 @@ CREATE TABLE rules (
   non_smoking TINYINT(1) NOT NULL,
   pet_friendly TINYINT(1) NOT NULL,
   taxes_included TINYINT(1) NOT NULL,
+  cancellation VARCHAR(500) NOT NULL,
   important_notes VARCHAR(5000) NOT NULL,
   PRIMARY KEY (id)
 );

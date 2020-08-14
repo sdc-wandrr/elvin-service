@@ -49,17 +49,10 @@ const Headline = ({
 );
 
 Headline.propTypes = {
-  name: PropTypes.string,
-  street: PropTypes.string,
-  city: PropTypes.string,
-  country: PropTypes.string,
-};
-
-Headline.defaultProps = {
-  name: '',
-  street: '',
-  city: '',
-  country: '',
+  name: PropTypes.string.isRequired,
+  street: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
 };
 
 export default Headline;

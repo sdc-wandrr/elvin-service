@@ -1,5 +1,4 @@
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './client/index.jsx',
@@ -10,14 +9,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
-        include: path.resolve(__dirname, 'client'),
+        test: /\.(js||jsx)?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-react', '@babel/preset-env'],
-          },
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            '@babel/preset-react',
+            '@babel/preset-env',
+          ],
         },
       },
       {
@@ -35,7 +34,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new Dotenv(),
-  ],
 };

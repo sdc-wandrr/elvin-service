@@ -1,21 +1,39 @@
+/* eslint-disable import/extensions */
 import React from 'react';
 import Axios from 'axios';
+// import styled, { createGlobalStyle } from 'styled-components';
 import Headline from './Headline.jsx';
-import MapContainer from './MapContainer.jsx';
+import Map from './Map.jsx';
 import Rules from './Rules.jsx';
 import Description from './Description.jsx';
+import NavBar from './NavBar.jsx';
+
+// const GlobalStyle = createGlobalStyle`
+//   @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
+
+//   body {
+//     padding: 0;
+//     margin: 0;
+//     font-family: Roboto, sans-serif;
+//   }
+// `;
+
+// const Container = styled.div`
+
+// `;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: 99,
       name: '',
       street: '',
       city: '',
       country: '',
-      location: {},
-      zoomLevel: 10,
+      latitude: 0,
+      longitude: 0,
       description: '',
       editorial: '',
       checkInStart: '',
@@ -29,6 +47,7 @@ class App extends React.Component {
       nonSmoking: '',
       petFriendly: '',
       taxesIncluded: '',
+      cancellation: '',
       importantNotes: '',
     };
   }
@@ -40,8 +59,17 @@ class App extends React.Component {
     this.getPropertyRules();
   }
 
+  setHostelID() {
+    const path = window.location.pathname;
+    const urlID = path.match(/\d+/);
+    let newID = urlID[0];
+    newID = Number.parseInt(newID, 10);
+    this.setState({ id: newID });
+  }
+
   getPropertyName() {
-    Axios.get(`${window.location.href}/hostel`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/hostel`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
@@ -52,25 +80,24 @@ class App extends React.Component {
   }
 
   getPropertyAddress() {
-    Axios.get(`${window.location.href}/address`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/address`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
           street: data.street_address,
           city: data.city,
           country: data.country,
-          location: {
-            address: `${data.street_address}, ${data.city}, ${data.country}`,
-            lat: data.latitude,
-            lng: data.longitude,
-          },
+          latitude: data.latitude,
+          longitude: data.longitude,
         });
       })
       .catch((err) => err);
   }
 
   getPropertyRules() {
-    Axios.get(`${window.location.href}/rules`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/rules`)
       .then((res) => {
         const data = res.data[0];
         const kidFriendlyBoo = data.kid_friendly === 1 ? 'Child Friendly' : 'No Children Allowed';
@@ -93,6 +120,7 @@ class App extends React.Component {
           nonSmoking: nonSmokingBoo,
           petFriendly: petFriendlyBoo,
           taxesIncluded: taxesIncludedBoo,
+          cancellation: data.cancellation,
           importantNotes: data.important_notes,
         });
       })
@@ -100,7 +128,8 @@ class App extends React.Component {
   }
 
   getPropertyDescription() {
-    Axios.get(`${window.location.href}/description`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/description`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
@@ -121,6 +150,7 @@ class App extends React.Component {
           city={property.city}
           country={property.country}
         />
+        <NavBar />
         <Description
           editorial={property.editorial}
           description={property.description}
@@ -138,9 +168,10 @@ class App extends React.Component {
           nonSmoking={property.nonSmoking}
           petFriendly={property.petFriendly}
           taxesIncluded={property.taxesIncluded}
+          cancellation={property.cancellation}
           importantNotes={property.importantNotes}
         />
-        <MapContainer location={property.location} zoomLevel={17} />
+        <Map latitude={property.latitude} longitude={property.longitude} />
       </div>
     );
   }
