@@ -3,8 +3,6 @@ import React from 'react';
 import Axios from 'axios';
 // import styled, { createGlobalStyle } from 'styled-components';
 import Headline from './Headline.jsx';
-import Map from './Map.jsx';
-import Rules from './Rules.jsx';
 import Description from './Description.jsx';
 import NavBar from './NavBar.jsx';
 
@@ -150,13 +148,9 @@ class App extends React.Component {
           city={property.city}
           country={property.country}
         />
-        <NavBar />
-        <Description
-          editorial={property.editorial}
-          description={property.description}
-        />
-        <Rules
-          rules={property.rules}
+        <NavBar
+          latitude={property.latitude}
+          longitude={property.longitude}
           checkInStart={property.checkInStart}
           checkInEnd={property.checkInEnd}
           checkOut={property.checkOut}
@@ -171,7 +165,11 @@ class App extends React.Component {
           cancellation={property.cancellation}
           importantNotes={property.importantNotes}
         />
-        <Map latitude={property.latitude} longitude={property.longitude} />
+
+        <Description
+          editorial={property.editorial}
+          description={property.description}
+        />
       </div>
     );
   }
