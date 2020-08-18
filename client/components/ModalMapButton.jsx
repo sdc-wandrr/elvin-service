@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import styled from 'styled-components';
-import { IconContext } from 'react-icons';
 import Map from './Map.jsx';
 import Modal from '../hooks/ModalHook.jsx';
 
@@ -46,7 +46,7 @@ const NavButtonInnerDiv = styled.div`
 `;
 
 const MapModalHeader = styled.header`
-  height: 66px;
+  height: 18px;
   padding: 24px 24px 24px 32px;
   position: relative;
   display: flex;

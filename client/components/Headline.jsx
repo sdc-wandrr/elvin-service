@@ -131,7 +131,8 @@ const Headline = ({
           </div>
         </ThumbBadge>
         <HoverPopperText>
-          {/* <p>We love this hostel! It gets our thumbs up for consistently high customer ratings and excellent quality scores</p> */}
+          {/* <p>We love this hostel! It gets our thumbs up for
+          consistently high customer ratings and excellent quality scores</p> */}
         </HoverPopperText>
       </TooltipCard>
 

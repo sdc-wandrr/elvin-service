@@ -1,10 +1,37 @@
 /* eslint-disable no-unused-expressions */
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ModalComponent } from '../hooks/ModalHook.jsx';
 import ModalMapButton from './ModalMapButton.jsx';
 import ModalRulesButton from './ModalRulesButton.jsx';
+
+const NavBarGridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 78px 97px 67px 97px 127px;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: "PricesContainer FacilitiesContainer MapContainer ReviewsContainer RulesContainer FlexArea";
+`;
+const PricesContainer = styled.div`
+  grid-area: PricesContainer;
+`;
+const FacilitiesContainer = styled.div`
+  grid-area: FacilitiesContainer;
+`;
+const MapContainer = styled.div`
+  grid-area: MapContainer;
+`;
+const ReviewsContainer = styled.div`
+  grid-area: ReviewsContainer;
+`;
+
+const RulesContainer = styled.div`
+  grid-area: RulesContainer;
+`;
+
+const FlexArea = styled.div`
+  grid-area: FlexArea;
+`;
 
 const NavButtons = styled.button`
   color: #31363f;
@@ -22,10 +49,6 @@ const NavButtons = styled.button`
     transition: box-shadow 0.15s ease-in-out 0s;
     box-shadow: rgb(169, 175, 188) 0px -4px 0px 0px inset;
   }
-`;
-
-const ReviewsNavButton = styled(NavButtons)`
-  display: inline;
 `;
 
 const NavButtonInnerDiv = styled.div`
@@ -67,59 +90,52 @@ background-color: rgba(0,0,0,0.8);
 const NavBar = (props) => {
   const property = props;
   return (
-    <div className="nav">
-      <NavButtons type="button">
-        <NavButtonInnerDiv>Prices</NavButtonInnerDiv>
-      </NavButtons>
-      <NavButtons type="button">
-        <NavButtonInnerDiv>Facilities</NavButtonInnerDiv>
-      </NavButtons>
-      <ModalComponent backgroundComponent={ModalMapBackground}>
-        <ModalMapButton
-          latitude={property.latitude}
-          longitude={property.longitude}
-        />
-      </ModalComponent>
-      <ReviewsNavButton type="button">
-        <NavButtonInnerDiv>Reviews</NavButtonInnerDiv>
-      </ReviewsNavButton>
-      <ModalComponent backgroundComponent={ModalRulesBackground}>
-        <ModalRulesButton
-          checkInStart={property.checkInStart}
-          checkInEnd={property.checkInEnd}
-          checkOut={property.checkOut}
-          kidFriendly={property.kidFriendly}
-          creditCards={property.creditCards}
-          ageRestriction={property.ageRestriction}
-          curfew={property.curfew}
-          lockOut={property.lockOut}
-          nonSmoking={property.nonSmoking}
-          petFriendly={property.petFriendly}
-          taxesIncluded={property.taxesIncluded}
-          cancellation={property.cancellation}
-          importantNotes={property.importantNotes}
-        />
-      </ModalComponent>
-    </div>
+    <NavBarGridContainer>
+      <PricesContainer>
+        <NavButtons type="button">
+          <NavButtonInnerDiv>Prices</NavButtonInnerDiv>
+        </NavButtons>
+      </PricesContainer>
+      <FacilitiesContainer>
+        <NavButtons type="button">
+          <NavButtonInnerDiv>Facilities</NavButtonInnerDiv>
+        </NavButtons>
+      </FacilitiesContainer>
+      <MapContainer>
+        <ModalComponent backgroundComponent={ModalMapBackground}>
+          <ModalMapButton
+            latitude={property.latitude}
+            longitude={property.longitude}
+          />
+        </ModalComponent>
+      </MapContainer>
+      <ReviewsContainer>
+        <NavButtons type="button">
+          <NavButtonInnerDiv>Reviews</NavButtonInnerDiv>
+        </NavButtons>
+      </ReviewsContainer>
+      <RulesContainer>
+        <ModalComponent backgroundComponent={ModalRulesBackground}>
+          <ModalRulesButton
+            checkInStart={property.checkInStart}
+            checkInEnd={property.checkInEnd}
+            checkOut={property.checkOut}
+            kidFriendly={property.kidFriendly}
+            creditCards={property.creditCards}
+            ageRestriction={property.ageRestriction}
+            curfew={property.curfew}
+            lockOut={property.lockOut}
+            nonSmoking={property.nonSmoking}
+            petFriendly={property.petFriendly}
+            taxesIncluded={property.taxesIncluded}
+            cancellation={property.cancellation}
+            importantNotes={property.importantNotes}
+          />
+        </ModalComponent>
+      </RulesContainer>
+      <FlexArea />
+    </NavBarGridContainer>
   );
-};
-
-NavBar.propTypes = {
-  checkInStart: PropTypes.string.isRequired,
-  checkInEnd: PropTypes.string.isRequired,
-  checkOut: PropTypes.string.isRequired,
-  kidFriendly: PropTypes.string.isRequired,
-  creditCards: PropTypes.string.isRequired,
-  ageRestriction: PropTypes.string.isRequired,
-  curfew: PropTypes.string.isRequired,
-  lockOut: PropTypes.string.isRequired,
-  nonSmoking: PropTypes.string.isRequired,
-  petFriendly: PropTypes.string.isRequired,
-  taxesIncluded: PropTypes.string.isRequired,
-  cancellation: PropTypes.string.isRequired,
-  importantNotes: PropTypes.string.isRequired,
-  latitude: PropTypes.number.isRequired,
-  longitude: PropTypes.number.isRequired,
 };
 
 export default NavBar;

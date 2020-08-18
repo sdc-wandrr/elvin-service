@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { MdArrowBack } from 'react-icons/md';
 import styled from 'styled-components';
@@ -15,19 +16,21 @@ const StyledModal = Modal.styled`
   z-index: 110;
   box-shadow: 0 2px 8px rbga(0, 0, 0, 38);
   overflow-y: auto;
-  padding: 0 32px;
+  padding: 0;
 
 `;
 
 const ModalRulesHeader = styled.header`
   display: flex;
   border-bottom: 1px solid #f1f2f4;
-  padding: 0 32px 0 0;
+  padding: 16px 32px
   font-size: 16px;
+  margin-left: 16px;
 `;
 
 const CloseModalArrowIcon = styled.span`
   color: #31363f;
+  margin-left:16px
   font-size: 16px;
   min-height: auto;
   min-width: auto;
