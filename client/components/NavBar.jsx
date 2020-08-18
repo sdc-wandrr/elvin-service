@@ -1,116 +1,108 @@
 /* eslint-disable no-unused-expressions */
 import React from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-import style from '../css/navbar.module.css';
-import Rules from './Rules.jsx';
-import Map from './Map.jsx';
+import styled from 'styled-components';
+import { ModalComponent } from '../hooks/ModalHook.jsx';
+import ModalMapButton from './ModalMapButton.jsx';
+import ModalRulesButton from './ModalRulesButton.jsx';
 
-// import useOnClickOutside from '../hooks/useOnClickOutside.jsx';
+const NavButtons = styled.button`
+  color: #31363f;
+  font-size: 16px;
+  white-space: nowrap;
+  word-spacing: 1px;
+  height: 54px;
+  width: auto;
+  padding: 16px 0 16px 0;
+  border-style: none;
+  cursor: pointer;
+  background-color: transparent;
 
-class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mapDisplay: 'none',
-      rulesDisplay: 'none',
-    };
+  &:hover {
+    transition: box-shadow 0.15s ease-in-out 0s;
+    box-shadow: rgb(169, 175, 188) 0px -4px 0px 0px inset;
   }
+`;
 
-  handleMapClick(e) {
-    e.preventDefault();
-    const getState = this.state;
-    let type;
-    getState.mapDisplay === 'none'
-      ? type = 'block'
-      : type = 'none';
-    this.setState({
-      mapDisplay: type,
-    });
-  }
+const ReviewsNavButton = styled(NavButtons)`
+  display: inline;
+`;
 
-  handleRulesClick(e) {
-    e.preventDefault();
-    const getState = this.state;
-    let type;
-    getState.rulesDisplay === 'none'
-      ? type = 'block'
-      : type = 'none';
-    this.setState({
-      rulesDisplay: type,
-    });
-  }
+const NavButtonInnerDiv = styled.div`
+  color: #31363f;
+  text-alight: left;
+  font-size: 16px;
+  line-height: 1.38;
+  letter-spacing: 0;
+  padding: 0 16px;
+  border-right: 1px solid #dddfe4;
+  text-transform: capitalize;
+`;
 
-  render() {
-    const property = this.props;
-    return (
-      <div className="nav">
-        <button type="button">Prices</button>
-        <button type="button">Facilities</button>
-        <button type="button">Prices</button>
-        <button
-          onClick={this.handleMapClick.bind(this)}
-          style={{ display: property.buttonDisplay }}
-        >
-          Map
-        </button>
-        <div style={{ display: this.state.mapDisplay }}>
-          <div>
-            <div>
-              <span onClick={this.handleMapClick.bind(this)}>
-                <FaArrowLeft />
-              </span>
-            </div>
-            <div>
-              <Map
-                latitude={property.latitude}
-                longitude={property.longitude}
-              />
-            </div>
-          </div>
-        </div>
+const ModalMapBackground = styled.div`
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 30;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  `;
 
-        <div className={style.modal}>
-          <div className={style.header}>
-            <button
-              className={style.modalbutton}
-              onClick={this.handleRulesClick.bind(this)}
-              style={{ display: property.buttonDisplay }}
-            >
-              Rules
-            </button>
-            <div className={style.overlay} style={{ display: this.state.rulesDisplay }}>
-              <div>
-                <div>
-                  <span onClick={this.handleRulesClick.bind(this)}>
-                    <FaArrowLeft />
-                  </span>
-                </div>
-              </div>
-              <div>
-                <Rules
-                  checkInStart={property.checkInStart}
-                  checkInEnd={property.checkInEnd}
-                  checkOut={property.checkOut}
-                  kidFriendly={property.kidFriendly}
-                  creditCards={property.creditCards}
-                  ageRestriction={property.ageRestriction}
-                  curfew={property.curfew}
-                  lockOut={property.lockOut}
-                  nonSmoking={property.nonSmoking}
-                  petFriendly={property.petFriendly}
-                  taxesIncluded={property.taxesIncluded}
-                  cancellation={property.cancellation}
-                  importantNotes={property.importantNotes}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
+const ModalRulesBackground = styled.div`
+position: fixed;
+left: 0;
+top: 0;
+bottom: 0;
+right: 0;
+overflow: auto;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.8);
+`;
+
+const NavBar = (props) => {
+  const property = props;
+  return (
+    <div className="nav">
+      <NavButtons type="button">
+        <NavButtonInnerDiv>Prices</NavButtonInnerDiv>
+      </NavButtons>
+      <NavButtons type="button">
+        <NavButtonInnerDiv>Facilities</NavButtonInnerDiv>
+      </NavButtons>
+      <ModalComponent backgroundComponent={ModalMapBackground}>
+        <ModalMapButton
+          latitude={property.latitude}
+          longitude={property.longitude}
+        />
+      </ModalComponent>
+      <ReviewsNavButton type="button">
+        <NavButtonInnerDiv>Reviews</NavButtonInnerDiv>
+      </ReviewsNavButton>
+      <ModalComponent backgroundComponent={ModalRulesBackground}>
+        <ModalRulesButton
+          checkInStart={property.checkInStart}
+          checkInEnd={property.checkInEnd}
+          checkOut={property.checkOut}
+          kidFriendly={property.kidFriendly}
+          creditCards={property.creditCards}
+          ageRestriction={property.ageRestriction}
+          curfew={property.curfew}
+          lockOut={property.lockOut}
+          nonSmoking={property.nonSmoking}
+          petFriendly={property.petFriendly}
+          taxesIncluded={property.taxesIncluded}
+          cancellation={property.cancellation}
+          importantNotes={property.importantNotes}
+        />
+      </ModalComponent>
+    </div>
+  );
+};
 
 NavBar.propTypes = {
   checkInStart: PropTypes.string.isRequired,
