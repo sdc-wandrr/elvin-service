@@ -436,7 +436,11 @@ const Rules = (props) => {
             Things to Note
           </NotesTitle>
           <NotesText>
-            <p>{hostel.importantNotes}</p>
+            <p>{hostel.importantNotesOne}</p>
+            <p>{hostel.importantNotesTwo}</p>
+            <p>{hostel.importantNotesThree}</p>
+            <p>{hostel.importantNotesFour}</p>
+            <p>{hostel.importantNotesFive}</p>
           </NotesText>
         </NotesContainer>
       </NotesSection>

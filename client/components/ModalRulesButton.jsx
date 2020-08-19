@@ -143,7 +143,11 @@ const ModalRulesButton = (props) => {
             petFriendly={hostel.petFriendly}
             taxesIncluded={hostel.taxesIncluded}
             cancellation={hostel.cancellation}
-            importantNotes={hostel.importantNotes}
+            importantNotesOne={hostel.importantNotesOne}
+            importantNotesTwo={hostel.importantNotesTwo}
+            importantNotesThree={hostel.importantNotesThree}
+            importantNotesFour={hostel.importantNotesFour}
+            importantNotesFive={hostel.importantNotesFive}
           />
         </RulesContentContainer>
       </StyledModal>

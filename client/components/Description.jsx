@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import FullDescription from './FullDescription.jsx';
 
 const Description = (props) => {
   const [expanded, setExpanded] = useState({ shown: true });
   const hostel = props;
-  const text = hostel.description;
-  const truncated = text.slice(0, 850);
+  const text = hostel.descriptionTwo;
+  const truncated = text.slice(0, 500);
 
   const EditorialContainer = styled.div`
     bottom-margin: 16px;
@@ -98,11 +99,23 @@ const Description = (props) => {
       <Flex80>
         <EditorialContainer>
           <EditorialTitle>HostileWorld says</EditorialTitle>
-          <EditorialBodyText>{hostel.editorial}</EditorialBodyText>
+          <EditorialBodyText>
+            <p>{hostel.editorialOne}</p>
+            <p>{hostel.editorialTwo}</p>
+          </EditorialBodyText>
         </EditorialContainer>
         <DescriptionContainer>
           <DescriptionTitle>Property Description</DescriptionTitle>
-          <DescriptionBodyText>{expanded.shown ? truncated : text}</DescriptionBodyText>
+          <DescriptionBodyText>
+            {expanded.shown ? truncated
+              : (
+                <FullDescription
+                  descriptionOne={hostel.descriptionOne}
+                  descriptionTwo={hostel.descriptionTwo}
+                  descriptionThree={hostel.descriptionThree}
+                />
+              )}
+          </DescriptionBodyText>
           <DescriptionButton type="button" className="btn-show-more" onClick={() => setExpanded({ shown: !expanded.shown })}>
             {expanded.shown ? (<DescriptionButtonText>show more</DescriptionButtonText>)
               : (<DescriptionButtonText>show less</DescriptionButtonText>)}

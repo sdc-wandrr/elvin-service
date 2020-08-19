@@ -58,8 +58,11 @@ class App extends React.Component {
       country: '',
       latitude: 0,
       longitude: 0,
-      description: '',
-      editorial: '',
+      descriptionOne: '',
+      descriptionTwo: '',
+      descriptionThree: '',
+      editorialOne: '',
+      editorialTwo: '',
       checkInStart: '',
       checkInEnd: '',
       checkOut: '',
@@ -72,7 +75,11 @@ class App extends React.Component {
       petFriendly: '',
       taxesIncluded: '',
       cancellation: '',
-      importantNotes: '',
+      importantNotesOne: '',
+      importantNotesTwo: '',
+      importantNotesThree: '',
+      importantNotesFour: '',
+      importantNotesFive: '',
     };
   }
 
@@ -145,7 +152,11 @@ class App extends React.Component {
           petFriendly: petFriendlyBoo,
           taxesIncluded: taxesIncludedBoo,
           cancellation: data.cancellation,
-          importantNotes: data.important_notes,
+          importantNotesOne: data.important_notes_one,
+          importantNotesTwo: data.important_notes_two,
+          importantNotesThree: data.important_notes_three,
+          importantNotesFour: data.important_notes_four,
+          importantNotesFive: data.important_notes_five,
         });
       })
       .catch((err) => err);
@@ -157,8 +168,12 @@ class App extends React.Component {
       .then((res) => {
         const data = res.data[0];
         this.setState({
-          editorial: data.editorial_text,
-          description: data.description_text,
+          editorialOne: data.editorial_text_one,
+          editorialTwo: data.editorial_text_two,
+          descriptionOne: data.description_text_one,
+          descriptionTwo: data.description_text_two,
+          descriptionThree: data.description_text_three,
+
         });
       })
       .catch((err) => err);
@@ -194,14 +209,21 @@ class App extends React.Component {
               petFriendly={property.petFriendly}
               taxesIncluded={property.taxesIncluded}
               cancellation={property.cancellation}
-              importantNotes={property.importantNotes}
+              importantNotesOne={property.importantNotesOne}
+              importantNotesTwo={property.importantNotesTwo}
+              importantNotesThree={property.importantNotesThree}
+              importantNotesFour={property.importantNotesFour}
+              importantNotesFive={property.importantNotesFive}
             />
           </PageInner>
         </NavBarContainer>
         <PageInner>
           <Description
-            editorial={property.editorial}
-            description={property.description}
+            editorialOne={property.editorialOne}
+            editorialTwo={property.editorialTwo}
+            descriptionOne={property.descriptionOne}
+            descriptionTwo={property.descriptionTwo}
+            descriptionThree={property.descriptionThree}
           />
         </PageInner>
       </div>

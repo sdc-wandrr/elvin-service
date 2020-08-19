@@ -129,7 +129,11 @@ const NavBar = (props) => {
             petFriendly={property.petFriendly}
             taxesIncluded={property.taxesIncluded}
             cancellation={property.cancellation}
-            importantNotes={property.importantNotes}
+            importantNotesOne={property.importantNotesOne}
+            importantNotesTwo={property.importantNotesTwo}
+            importantNotesThree={property.importantNotesThree}
+            importantNotesFour={property.importantNotesFour}
+            importantNotesFive={property.importantNotesFive}
           />
         </ModalComponent>
       </RulesContainer>
