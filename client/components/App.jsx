@@ -1,23 +1,68 @@
+/* eslint-disable import/extensions */
 import React from 'react';
 import Axios from 'axios';
+import styled, { createGlobalStyle } from 'styled-components';
 import Headline from './Headline.jsx';
-import MapContainer from './MapContainer.jsx';
-import Rules from './Rules.jsx';
 import Description from './Description.jsx';
+import NavBar from './NavBar.jsx';
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    font-family: Noto, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    word-spacing: .0625rem;
+    background: #fff;
+    line-height: 1.15;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-size-adjust: 100%
+    word-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    box-sizing: border-box;
+    min-height: 100vh;
+    position: relative;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    text-size-adjust: 100%
+  }
+`;
+
+const PageInner = styled.div`
+  max-width: calc(100% - 2rem);
+  margin: 0 72.5px 0 72.5px;
+  padding: 0 16px;
+`;
+
+const NavBarContainer = styled.div`
+  border-top: .0625rem solid #dddfe4;
+  border-bottom: .0625rem solid #dddfe4;
+  background-color: #f1f2f4;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+`;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: 99,
       name: '',
       street: '',
       city: '',
       country: '',
-      location: {},
-      zoomLevel: 10,
-      description: '',
-      editorial: '',
+      latitude: 0,
+      longitude: 0,
+      descriptionOne: '',
+      descriptionTwo: '',
+      descriptionThree: '',
+      editorialOne: '',
+      editorialTwo: '',
       checkInStart: '',
       checkInEnd: '',
       checkOut: '',
@@ -29,7 +74,12 @@ class App extends React.Component {
       nonSmoking: '',
       petFriendly: '',
       taxesIncluded: '',
-      importantNotes: '',
+      cancellation: '',
+      importantNotesOne: '',
+      importantNotesTwo: '',
+      importantNotesThree: '',
+      importantNotesFour: '',
+      importantNotesFive: '',
     };
   }
 
@@ -40,8 +90,17 @@ class App extends React.Component {
     this.getPropertyRules();
   }
 
+  setHostelID() {
+    const path = window.location.pathname;
+    const urlID = path.match(/\d+/);
+    let newID = urlID[0];
+    newID = Number.parseInt(newID, 10);
+    this.setState({ id: newID });
+  }
+
   getPropertyName() {
-    Axios.get(`${window.location.href}/hostel`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/hostel`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
@@ -52,25 +111,24 @@ class App extends React.Component {
   }
 
   getPropertyAddress() {
-    Axios.get(`${window.location.href}/address`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/address`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
           street: data.street_address,
           city: data.city,
           country: data.country,
-          location: {
-            address: `${data.street_address}, ${data.city}, ${data.country}`,
-            lat: data.latitude,
-            lng: data.longitude,
-          },
+          latitude: data.latitude,
+          longitude: data.longitude,
         });
       })
       .catch((err) => err);
   }
 
   getPropertyRules() {
-    Axios.get(`${window.location.href}/rules`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/rules`)
       .then((res) => {
         const data = res.data[0];
         const kidFriendlyBoo = data.kid_friendly === 1 ? 'Child Friendly' : 'No Children Allowed';
@@ -93,19 +151,29 @@ class App extends React.Component {
           nonSmoking: nonSmokingBoo,
           petFriendly: petFriendlyBoo,
           taxesIncluded: taxesIncludedBoo,
-          importantNotes: data.important_notes,
+          cancellation: data.cancellation,
+          importantNotesOne: data.important_notes_one,
+          importantNotesTwo: data.important_notes_two,
+          importantNotesThree: data.important_notes_three,
+          importantNotesFour: data.important_notes_four,
+          importantNotesFive: data.important_notes_five,
         });
       })
       .catch((err) => err);
   }
 
   getPropertyDescription() {
-    Axios.get(`${window.location.href}/description`)
+    const property = this.state;
+    Axios.get(`/api/house/${property.id}/description`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
-          editorial: data.editorial_text,
-          description: data.description_text,
+          editorialOne: data.editorial_text_one,
+          editorialTwo: data.editorial_text_two,
+          descriptionOne: data.description_text_one,
+          descriptionTwo: data.description_text_two,
+          descriptionThree: data.description_text_three,
+
         });
       })
       .catch((err) => err);
@@ -115,32 +183,49 @@ class App extends React.Component {
     const property = this.state;
     return (
       <div id="property-info">
-        <Headline
-          name={property.name}
-          street={property.street}
-          city={property.city}
-          country={property.country}
-        />
-        <Description
-          editorial={property.editorial}
-          description={property.description}
-        />
-        <Rules
-          rules={property.rules}
-          checkInStart={property.checkInStart}
-          checkInEnd={property.checkInEnd}
-          checkOut={property.checkOut}
-          kidFriendly={property.kidFriendly}
-          creditCards={property.creditCards}
-          ageRestriction={property.ageRestriction}
-          curfew={property.curfew}
-          lockOut={property.lockOut}
-          nonSmoking={property.nonSmoking}
-          petFriendly={property.petFriendly}
-          taxesIncluded={property.taxesIncluded}
-          importantNotes={property.importantNotes}
-        />
-        <MapContainer location={property.location} zoomLevel={17} />
+        <GlobalStyle />
+        <PageInner>
+          <Headline
+            name={property.name}
+            street={property.street}
+            city={property.city}
+            country={property.country}
+          />
+        </PageInner>
+        <NavBarContainer>
+          <PageInner>
+            <NavBar
+              latitude={property.latitude}
+              longitude={property.longitude}
+              checkInStart={property.checkInStart}
+              checkInEnd={property.checkInEnd}
+              checkOut={property.checkOut}
+              kidFriendly={property.kidFriendly}
+              creditCards={property.creditCards}
+              ageRestriction={property.ageRestriction}
+              curfew={property.curfew}
+              lockOut={property.lockOut}
+              nonSmoking={property.nonSmoking}
+              petFriendly={property.petFriendly}
+              taxesIncluded={property.taxesIncluded}
+              cancellation={property.cancellation}
+              importantNotesOne={property.importantNotesOne}
+              importantNotesTwo={property.importantNotesTwo}
+              importantNotesThree={property.importantNotesThree}
+              importantNotesFour={property.importantNotesFour}
+              importantNotesFive={property.importantNotesFive}
+            />
+          </PageInner>
+        </NavBarContainer>
+        <PageInner>
+          <Description
+            editorialOne={property.editorialOne}
+            editorialTwo={property.editorialTwo}
+            descriptionOne={property.descriptionOne}
+            descriptionTwo={property.descriptionTwo}
+            descriptionThree={property.descriptionThree}
+          />
+        </PageInner>
       </div>
     );
   }

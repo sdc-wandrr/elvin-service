@@ -14,8 +14,11 @@ DROP TABLE IF EXISTS descriptions;
 
 CREATE TABLE descriptions (
   id SMALLINT AUTO_INCREMENT,
-  editorial_text VARCHAR(5000) NOT NULL,
-  description_text VARCHAR(5000) NOT NULL,
+  editorial_text_one TEXT NOT NULL,
+  editorial_text_two TEXT NOT NULL,
+  description_text_one TEXT NOT NULL,
+  description_text_two TEXT NOT NULL,
+  description_text_three TEXT NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -34,7 +37,12 @@ CREATE TABLE rules (
   non_smoking TINYINT(1) NOT NULL,
   pet_friendly TINYINT(1) NOT NULL,
   taxes_included TINYINT(1) NOT NULL,
-  important_notes VARCHAR(5000) NOT NULL,
+  cancellation VARCHAR(500) NOT NULL,
+  important_notes_one TEXT NOT NULL,
+  important_notes_two TEXT NOT NULL,
+  important_notes_three TEXT NOT NULL,
+  important_notes_four TEXT NOT NULL,
+  important_notes_five TEXT NOT NULL,
   PRIMARY KEY (id)
 );
 
