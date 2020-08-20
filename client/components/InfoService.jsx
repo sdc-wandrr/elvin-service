@@ -46,12 +46,12 @@ const NavBarContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-class App extends React.Component {
+class InfoService extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: 99,
+      id: 0,
       name: '',
       street: '',
       city: '',
@@ -84,15 +84,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getPropertyName();
-    this.getPropertyAddress();
-    this.getPropertyDescription();
-    this.getPropertyRules();
+    this.setHostelID();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const property = this.state;
+    if (prevState.id !== property.id) {
+      this.getPropertyName();
+      this.getPropertyAddress();
+      this.getPropertyDescription();
+      this.getPropertyRules();
+    }
   }
 
   setHostelID() {
-    const path = window.location.pathname;
-    const urlID = path.match(/\d+/);
+    const idPath = window.location.pathname;
+    const urlID = idPath.match(/\d+/);
     let newID = urlID[0];
     newID = Number.parseInt(newID, 10);
     this.setState({ id: newID });
@@ -231,4 +238,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default InfoService;

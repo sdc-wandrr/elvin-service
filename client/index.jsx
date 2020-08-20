@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
+import InfoService from './components/InfoService.jsx';
 
-const container = document.getElementById('app');
-ReactDOM.render(<App />, container);
+ReactDOM.render(<InfoService />, document.getElementById('infoservice'));
