@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ModalComponent } from '../hooks/ModalHook.jsx';
 import ModalMapButton from './ModalMapButton.jsx';
 import ModalRulesButton from './ModalRulesButton.jsx';
+import ModalWindow from './ben/ModalReview.jsx';
 
 const NavBarGridContainer = styled.div`
   display: grid;
@@ -110,9 +111,16 @@ const NavBar = (props) => {
         </ModalComponent>
       </MapContainer>
       <ReviewsContainer>
-        <NavButtons type="button">
-          <NavButtonInnerDiv>Reviews</NavButtonInnerDiv>
-        </NavButtons>
+        <ModalWindow
+          buttonDisplay="block"
+          reviews={property.reviews}
+          averages={property.averages}
+          count={property.reviewsLength}
+          word={property.revieweWord}
+          buttonStyle={2}
+          innerStyle={2}
+          buttonText={property.buttonText}
+        />
       </ReviewsContainer>
       <RulesContainer>
         <ModalComponent backgroundComponent={ModalRulesBackground}>
