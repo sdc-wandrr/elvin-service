@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import FullDescription from './FullDescription.jsx';
+import placeholder from './img/snapshot.png';
 
 const EditorialContainer = styled.div`
     bottom-margin: 16px;
@@ -17,7 +18,7 @@ const EditorialTitle = styled.h4`
 `;
 
 const EditorialBodyText = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20.02px;
   letter-spacing: .1px;
   font-weight: 400;
@@ -35,6 +36,8 @@ const PropertyInfo = styled.div`
 
 const Flex20 = styled.div`
   flex: 20%;
+  margin-top: 39px;
+  margin-left: 20px;
 `;
 
 const Flex80 = styled.div`
@@ -56,7 +59,7 @@ const DescriptionTitle = styled.h4`
 `;
 
 const DescriptionBodyText = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20.02px;
   letter-spacing: .1px;
   font-weight: 400;
@@ -95,7 +98,9 @@ const Description = (props) => {
 
   return (
     <PropertyInfo>
-      <Flex20 />
+      <Flex20>
+        <img src={placeholder} alt="review's snapshot img placeholder" />
+      </Flex20>
       <Flex80>
         <EditorialContainer>
           <EditorialTitle>HostileWorld says</EditorialTitle>
