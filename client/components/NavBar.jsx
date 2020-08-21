@@ -111,16 +111,19 @@ const NavBar = (props) => {
         </ModalComponent>
       </MapContainer>
       <ReviewsContainer>
-        <ModalWindow
-          buttonDisplay="block"
-          reviews={property.reviews}
-          averages={property.averages}
-          count={property.reviewsLength}
-          word={property.revieweWord}
-          buttonStyle={2}
-          innerStyle={2}
-          buttonText={property.buttonText}
-        />
+        <NavButtons type="button">
+          <NavButtonInnerDiv>Reviews</NavButtonInnerDiv>
+          {/* <ModalWindow
+            buttonDisplay="block"
+            reviews={property.reviews}
+            averages={property.averages}
+            count={property.reviewsLength}
+            word={property.revieweWord}
+            buttonStyle={2}
+            innerStyle={2}
+            buttonText={property.buttonText}
+          /> */}
+        </NavButtons>
       </ReviewsContainer>
       <RulesContainer>
         <ModalComponent backgroundComponent={ModalRulesBackground}>
