@@ -35,7 +35,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.png$/,
+        test: /\.(png||ico)$/,
         use: [
           {
             loader: 'babel-loader',
