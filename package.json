@@ -13,8 +13,10 @@
     "url": "git://github.com/hrr47-karev/property-info-service"
   },
   "scripts": {
-    "build": "webpack -d --watch",
-    "start": "nodemon server/start.js",
+    "build-dev": "webpack -d --watch",
+    "build-deploy": "webpack --config webpack.prod.js",
+    "start": "node server/start.js",
+    "start-dev": "nodemon server/start.js",
     "seed": "node server/database/seed.js",
     "test": "jest --forceExit --coverage --no-cache",
     "test:watch": "jest --watch --runInBand"

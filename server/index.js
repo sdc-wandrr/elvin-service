@@ -5,6 +5,7 @@ const query = require('./database/queries.js');
 const app = express();
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../public')));
 app.use('/hostels/:id', express.static(path.join(__dirname, '../public')));
 
 app.get('/api/hostels/:id/hostel', (req, res) => {
