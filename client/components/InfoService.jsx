@@ -107,7 +107,7 @@ class InfoService extends React.Component {
 
   getPropertyName() {
     const property = this.state;
-    Axios.get(`/api/hostels/${property.id}/hostel`)
+    Axios.get(`/api/house/${property.id}/hostel`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
@@ -119,7 +119,7 @@ class InfoService extends React.Component {
 
   getPropertyAddress() {
     const property = this.state;
-    Axios.get(`/api/hostels/${property.id}/address`)
+    Axios.get(`/api/house/${property.id}/address`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
@@ -135,7 +135,7 @@ class InfoService extends React.Component {
 
   getPropertyRules() {
     const property = this.state;
-    Axios.get(`/api/hostels/${property.id}/rules`)
+    Axios.get(`/api/house/${property.id}/rules`)
       .then((res) => {
         const data = res.data[0];
         const kidFriendlyBoo = data.kid_friendly === 1 ? 'Child Friendly' : 'No Children Allowed';
@@ -176,7 +176,7 @@ class InfoService extends React.Component {
 
   getPropertyDescription() {
     const property = this.state;
-    Axios.get(`/api/hostels/${property.id}/description`)
+    Axios.get(`/api/house/${property.id}/description`)
       .then((res) => {
         const data = res.data[0];
         this.setState({
@@ -194,7 +194,7 @@ class InfoService extends React.Component {
   // ====== Ben's filesBen's AJAX Requests ======
   getReviews() {
     const property = this.state;
-    Axios.get(`/hostels/${property.id}/api/reviews`)
+    Axios.get(`/house/${property.id}/api/reviews`)
       .then((results) => {
         this.setState({
           reviews: results.data,
