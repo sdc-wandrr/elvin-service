@@ -164,11 +164,6 @@ class InfoService extends React.Component {
           importantNotesThree: data.important_notes_three,
           importantNotesFour: data.important_notes_four,
           importantNotesFive: data.important_notes_five,
-          reviews: [],
-          averageReviews: [],
-          reviewWord: '',
-          reviewLength: '',
-          buttonText: 'Reviews',
         });
       })
       .catch((err) => err);
@@ -190,53 +185,6 @@ class InfoService extends React.Component {
       })
       .catch((err) => err);
   }
-
-  // ====== Ben's filesBen's AJAX Requests ======
-  getReviews() {
-    const property = this.state;
-    Axios.get(`/hostels/${property.id}/api/reviews`)
-      .then((results) => {
-        this.setState({
-          reviews: results.data,
-          reviewsLength: results.data.length,
-        });
-        this.setAverages(results.data);
-      })
-      .catch((error) => {
-        console.log('ERROR IN REVIEW API');
-      });
-  }
-
-  setAverages(arr) {
-    const averages = {};
-    let word = 'Review';
-    for (const review of arr) {
-      for (const key in review) {
-        averages[key] === undefined
-          ? averages[key] = review[key]
-          : averages[key] += review[key];
-      }
-    }
-    for (const key in averages) {
-      averages[key] = Math.round((averages[key] / arr.length) * 10) / 10;
-    }
-    const { total } = averages;
-    if (total >= 6 && total < 7) {
-      word = 'Good';
-    } else if (total >= 7 && total < 8) {
-      word = 'Very Good';
-    } else if (total >= 8 && total < 9) {
-      word = 'Fabulous';
-    } else if (total >= 9) {
-      word = 'Fun';
-    }
-    this.setState({
-      averageReviews: averages,
-      reviewWord: word,
-    });
-  }
-
-  // ====== End of Ben's AJAX ======
 
   render() {
     const property = this.state;
@@ -273,12 +221,6 @@ class InfoService extends React.Component {
               importantNotesThree={property.importantNotesThree}
               importantNotesFour={property.importantNotesFour}
               importantNotesFive={property.importantNotesFive}
-              // ben's component requirements
-              reviews={property.reviews}
-              averages={property.averageReviews}
-              reviewWord={property.reviewWord}
-              reviewsLength={property.reviewsLength}
-              buttonText={property.buttonText}
             />
           </PageInner>
         </NavBarContainer>
