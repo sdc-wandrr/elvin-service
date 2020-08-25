@@ -99,7 +99,7 @@ const Description = (props) => {
   return (
     <PropertyInfo>
       <Flex20>
-        <img src={placeholder} alt="review's snapshot img placeholder" />
+        <img src="https://elasticbeanstalk-us-east-2-579023676300.s3.us-east-2.amazonaws.com/399b7f6a8457153009847bdc94541f87.png" alt="review's snapshot img placeholder" />
       </Flex20>
       <Flex80>
         <EditorialContainer>

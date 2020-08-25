@@ -194,7 +194,7 @@ class InfoService extends React.Component {
   // ====== Ben's filesBen's AJAX Requests ======
   getReviews() {
     const property = this.state;
-    Axios.get(`/house/${property.id}/api/reviews`)
+    Axios.get(`/hostels/${property.id}/api/reviews`)
       .then((results) => {
         this.setState({
           reviews: results.data,
