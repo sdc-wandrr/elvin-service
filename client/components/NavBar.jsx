@@ -113,7 +113,7 @@ const NavBar = (props) => {
       <ReviewsContainer>
         <NavButtons type="button">
           <NavButtonInnerDiv>Reviews</NavButtonInnerDiv>
-          {/* <ModalWindow
+          <ModalWindow
             buttonDisplay="block"
             reviews={property.reviews}
             averages={property.averages}
@@ -122,7 +122,7 @@ const NavBar = (props) => {
             buttonStyle={2}
             innerStyle={2}
             buttonText={property.buttonText}
-          /> */}
+          />
         </NavButtons>
       </ReviewsContainer>
       <RulesContainer>
