@@ -51,18 +51,18 @@ npm install
 
 ## API
 
-All GET, PUT, and DELETE endpoints define the "id" (e.g. "/api/house/:id/hostel" -> "/api/house/100/hostel") parameter that references the respective record on which the operation is being performed.
+All **GET, PUT, and DELETE** endpoints define the "id" (e.g. "/api/house/:id/hostel" -> "/api/house/100/hostel") parameter that references the respective record on which the operation is being performed.
 
-All POST and PUT endpoints expect json formated payload that defines the values of the record to be created or updated, respectively.
+All **POST and PUT** endpoints expect json formated payload that defines the values of the record to be created or updated, respectively.
 
-All GET, POST, and PUT endpoints return json formated record that was requested, created, or updated, respectively.
+All **GET, POST, and PUT** endpoints return json formated record that was requested, created, or updated, respectively.
 
 Examples of the requests/responses can be found at [this gist](https://gist.github.com/miraclestyle/52dcb9c16745c944cef1d4d56b7bea6b).
 
 
 ### Hostel
 
-The following are the endpoints for operating on the hostel table records:
+The following are the endpoints for operating on the *hostel* table records:
 
 - POST /api/house/hostel
 - GET /api/house/:id/hostel
@@ -72,7 +72,7 @@ The following are the endpoints for operating on the hostel table records:
 
 ### Description
 
-The following are the endpoints for operating on the description table records:
+The following are the endpoints for operating on the *description* table records:
 
 - POST /api/house/description
 - GET /api/house/:id/description
@@ -82,7 +82,7 @@ The following are the endpoints for operating on the description table records:
 
 ### Address
 
-The following are the endpoints for operating on the address table records:
+The following are the endpoints for operating on the *address* table records:
 
 - POST /api/house/address
 - GET /api/house/:id/address
@@ -92,7 +92,7 @@ The following are the endpoints for operating on the address table records:
 
 ### Rules
 
-The following are the endpoints for operating on the rules table records:
+The following are the endpoints for operating on the *rules* table records:
 
 - POST /api/house/rules
 - GET /api/house/:id/rules
