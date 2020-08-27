@@ -13,7 +13,7 @@ Contains a fullstack React module with components for displaying a hostel's desc
 
 1. [Requirements](#requirements)
 2. [Development](#development)
-3. [CRUD API](#crud api)
+3. [API](#api)
 
 
 ## Requirements
@@ -49,7 +49,7 @@ From within the root directory:
 npm install
 ```
 
-## CRUD API
+## API
 
 All GET, PUT, and DELETE endpoints define the "id" (e.g. "/api/house/:id/hostel" -> "/api/house/100/hostel") parameter that references the respective record on which the operation is being performed.
 
