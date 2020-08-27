@@ -113,6 +113,37 @@ app.get('/api/house/:id/address', (req, res) => {
   });
 });
 
+app.post('/api/house/address', (req, res) => {
+  query.createHouseAddress(req.body, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+app.put('/api/house/:id/address', (req, res) => {
+  const args = { ...req.body, id: req.params.id };
+  query.updateHouseAddress(args, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+app.delete('/api/house/:id/address', (req, res) => {
+  query.deleteHouseAddress(req.params.id, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send('Success');
+    }
+  });
+});
+
 // =============== rules ===============
 
 app.get('/api/house/:id/rules', (req, res) => {
