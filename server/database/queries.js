@@ -263,19 +263,21 @@ const deleteHouseDescription = (id, callback) => {
   });
 };
 
-module.exports.getHouseInfoByHostelID = getHouseInfoByHostelID;
-module.exports.createHouseInfo = createHouseInfo;
-module.exports.updateHouseInfo = updateHouseInfo;
-module.exports.deleteHouseInfo = deleteHouseInfo;
-module.exports.getHouseRules = getHouseRules;
-module.exports.createHouseRules = createHouseRules;
-module.exports.updateHouseRules = updateHouseRules;
-module.exports.deleteHouseRules = deleteHouseRules;
-module.exports.getHouseAddress = getHouseAddress;
-module.exports.createHouseAddress = createHouseAddress;
-module.exports.updateHouseAddress = updateHouseAddress;
-module.exports.deleteHouseAddress = deleteHouseAddress;
-module.exports.getHouseDescription = getHouseDescription;
-module.exports.createHouseDescription = createHouseDescription;
-module.exports.updateHouseDescription = updateHouseDescription;
-module.exports.deleteHouseDescription = deleteHouseDescription;
+module.exports = {
+  getHouseInfoByHostelID,
+  createHouseInfo,
+  updateHouseInfo,
+  deleteHouseInfo,
+  getHouseRules,
+  createHouseRules,
+  updateHouseRules,
+  deleteHouseRules,
+  getHouseAddress,
+  createHouseAddress,
+  updateHouseAddress,
+  deleteHouseAddress,
+  getHouseDescription,
+  createHouseDescription,
+  updateHouseDescription,
+  deleteHouseDescription,
+};
