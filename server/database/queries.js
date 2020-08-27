@@ -56,7 +56,8 @@ const deleteHouseInfo = (id, callback) => {
 // =============== Rules ===============
 
 const getHouseRules = (id, callback) => {
-  const queryStr = 'SELECT * from rules r INNER JOIN full_listing fl ON fl.name_id = ? AND r.id = fl.rules_id';
+  const queryStr = `SELECT * from rules r INNER JOIN full_listing fl
+  ON fl.name_id = ? AND r.id = fl.rules_id`;
   query(queryStr, [id], callback);
 };
 
@@ -66,7 +67,12 @@ const getHouseRulesByID = (id, callback) => {
 };
 
 const createHouseRules = (args, callback) => {
-  const queryStr = 'INSERT INTO rules (check_in_start, check_in_end, check_out, kid_friendly, credit_cards, age_restriction, curfew, lock_out, non_smoking, pet_friendly, taxes_included, cancellation, important_notes_one, important_notes_two, important_notes_three, important_notes_four, important_notes_five) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const queryStr = `INSERT INTO rules (check_in_start, check_in_end,
+  check_out, kid_friendly, credit_cards, age_restriction, curfew, lock_out,
+  non_smoking, pet_friendly, taxes_included, cancellation,
+  important_notes_one, important_notes_two, important_notes_three,
+  important_notes_four, important_notes_five)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
   const newArgs = [
     args.check_in_start,
     args.check_in_end,
@@ -96,7 +102,12 @@ const createHouseRules = (args, callback) => {
 };
 
 const updateHouseRules = (args, callback) => {
-  const queryStr = 'UPDATE rules SET check_in_start = ?, check_in_end = ?, check_out = ?, kid_friendly = ?, credit_cards = ?, age_restriction = ?, curfew = ?, lock_out = ?, non_smoking = ?, pet_friendly = ?,taxes_included = ?, cancellation = ?, important_notes_one = ?, important_notes_two = ?, important_notes_three = ?, important_notes_four = ?, important_notes_five = ? WHERE (id = ?)';
+  const queryStr = `UPDATE rules SET check_in_start = ?, check_in_end = ?,
+  check_out = ?, kid_friendly = ?, credit_cards = ?, age_restriction = ?,
+  curfew = ?, lock_out = ?, non_smoking = ?, pet_friendly = ?,
+  taxes_included = ?, cancellation = ?, important_notes_one = ?,
+  important_notes_two = ?, important_notes_three = ?,
+  important_notes_four = ?, important_notes_five = ? WHERE (id = ?)`;
   const newArgs = [
     args.check_in_start,
     args.check_in_end,
@@ -140,7 +151,8 @@ const deleteHouseRules = (id, callback) => {
 // =============== Address ===============
 
 const getHouseAddress = (id, callback) => {
-  const queryStr = 'SELECT * from addresses a INNER JOIN full_listing fl ON fl.name_id = ? AND a.id = fl.addresses_id';
+  const queryStr = `SELECT * from addresses a INNER JOIN full_listing fl
+  ON fl.name_id = ? AND a.id = fl.addresses_id`;
   query(queryStr, [id], callback);
 };
 
@@ -150,7 +162,9 @@ const getHouseAddressByID = (id, callback) => {
 };
 
 const createHouseAddress = (args, callback) => {
-  const queryStr = 'INSERT INTO addresses (street_address, city, state, zip, country, country_code, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  const queryStr = `INSERT INTO addresses
+  (street_address, city, state, zip, country, country_code,
+  latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
   const newArgs = [
     args.street_address,
     args.city,
@@ -171,7 +185,9 @@ const createHouseAddress = (args, callback) => {
 };
 
 const updateHouseAddress = (args, callback) => {
-  const queryStr = 'UPDATE addresses SET street_address = ?, city = ?, state = ?, zip = ?, country = ?, country_code = ?, latitude = ?, longitude = ? WHERE (id = ?)';
+  const queryStr = `UPDATE addresses SET street_address = ?, city = ?,
+  state = ?, zip = ?, country = ?, country_code = ?, latitude = ?,
+  longitude = ? WHERE (id = ?)`;
   const newArgs = [
     args.street_address,
     args.city,
@@ -206,7 +222,8 @@ const deleteHouseAddress = (id, callback) => {
 // =============== Description ===============
 
 const getHouseDescription = (id, callback) => {
-  const queryStr = 'SELECT * from descriptions d INNER JOIN full_listing fl ON fl.name_id = ? AND d.id = fl.descriptions_id';
+  const queryStr = `SELECT * from descriptions d INNER JOIN
+  full_listing fl ON fl.name_id = ? AND d.id = fl.descriptions_id`;
   query(queryStr, [id], callback);
 };
 
@@ -216,7 +233,9 @@ const getHouseDescriptionByID = (id, callback) => {
 };
 
 const createHouseDescription = (args, callback) => {
-  const queryStr = 'INSERT INTO descriptions (editorial_text_one, editorial_text_two, description_text_one, description_text_two, description_text_three) VALUES (?, ?, ?, ?, ?)';
+  const queryStr = `INSERT INTO descriptions
+  (editorial_text_one, editorial_text_two, description_text_one,
+  description_text_two, description_text_three) VALUES (?, ?, ?, ?, ?)`;
   const newArgs = [
     args.editorial_text_one,
     args.editorial_text_two,
@@ -234,7 +253,9 @@ const createHouseDescription = (args, callback) => {
 };
 
 const updateHouseDescription = (args, callback) => {
-  const queryStr = 'UPDATE descriptions SET editorial_text_one = ?, editorial_text_two = ?, description_text_one = ?, description_text_two = ?, description_text_three = ? WHERE (id = ?)';
+  const queryStr = `UPDATE descriptions SET editorial_text_one = ?,
+  editorial_text_two = ?, description_text_one = ?,
+  description_text_two = ?, description_text_three = ? WHERE (id = ?)`;
   const newArgs = [
     args.editorial_text_one,
     args.editorial_text_two,
