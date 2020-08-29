@@ -18,40 +18,10 @@ const getWritableStream = (filename) => {
 };
 
 const getCSVStringifier = () => {
+  const sample = helpers.getRecord();
+  const columns = Object.keys(sample);
   const stringifier = csvStringifier({
-    header: [
-      { id: 'name', title: 'name' },
-      { id: 'curfew', title: 'curfew' },
-      { id: 'cancellation', title: 'cancellation' },
-      { id: 'check_in_start', title: 'check_in_start' },
-      { id: 'check_in_end', title: 'check_in_end' },
-      { id: 'check_out', title: 'check_out' },
-      { id: 'kid_friendly', title: 'kid_friendly' },
-      { id: 'credit_cards', title: 'credit_cards' },
-      { id: 'age_restriction', title: 'age_restriction' },
-      { id: 'lock_out', title: 'lock_out' },
-      { id: 'non_smoking', title: 'non_smoking' },
-      { id: 'pet_friendly', title: 'pet_friendly' },
-      { id: 'taxes_included', title: 'taxes_included' },
-      { id: 'important_notes_one', title: 'important_notes_one' },
-      { id: 'important_notes_two', title: 'important_notes_two' },
-      { id: 'important_notes_three', title: 'important_notes_three' },
-      { id: 'important_notes_four', title: 'important_notes_four' },
-      { id: 'important_notes_five', title: 'important_notes_five' },
-      { id: 'city', title: 'city' },
-      { id: 'state', title: 'state' },
-      { id: 'zip', title: 'zip' },
-      { id: 'country', title: 'country' },
-      { id: 'latitude', title: 'latitude' },
-      { id: 'longitude', title: 'longitude' },
-      { id: 'street_address', title: 'street_address' },
-      { id: 'country_code', title: 'country_code' },
-      { id: 'editorial_text_one', title: 'editorial_text_one' },
-      { id: 'editorial_text_two', title: 'editorial_text_two' },
-      { id: 'description_text_one', title: 'description_text_one' },
-      { id: 'description_text_two', title: 'description_text_two' },
-      { id: 'description_text_three', title: 'description_text_three' },
-    ],
+    header: columns.map((column) => ({ id: column, title: column })),
   });
   return stringifier;
 };
@@ -91,8 +61,8 @@ const test = () => {
       }
     });
   };
-  const count = 10000;
-  const batchSize = 100;
+  const count = 1;
+  const batchSize = 1;
   timeit(count, batchSize, generateData);
 };
 
