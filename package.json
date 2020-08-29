@@ -17,7 +17,7 @@
     "build-deploy": "webpack --config webpack.prod.js",
     "start": "node server/start.js",
     "start-dev": "nodemon server/start.js",
-    "seed": "node server/database/seed.js",
+    "generate": "node server/database/generator.js",
     "test": "jest --forceExit --coverage --no-cache",
     "test:watch": "jest --watch --runInBand"
   },
@@ -30,6 +30,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "csv-writer": "^1.6.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "mysql": "^2.18.1",
