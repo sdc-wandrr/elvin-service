@@ -1,6 +1,8 @@
 const db = require('./connect.js');
 
 const getRecordById = (id) => {
-  const q = 'SELECT * FROM ';
+  const q = 'SELECT * FROM hostels WHERE id = $1';
   return db.query(q, [id]);
 };
+
+module.exports.getRecordById = getRecordById;
