@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const createWriter = require('csv-writer').createObjectCsvWriter;
+const csvStringifier = require('csv-writer').createObjectCsvStringifier;
 const helpers = require('./generator-helpers');
 
 const getBatch = (size, map = (input) => input) => {
@@ -12,15 +12,13 @@ const getBatch = (size, map = (input) => input) => {
   return records;
 };
 
-const getWritableJSONStream = () => {
-  const destination = path.resolve(__dirname, '..', '..', 'temp', 'data.json');
+const getWritableStream = (filename) => {
+  const destination = path.resolve(__dirname, '..', '..', 'temp', filename);
   return fs.createWriteStream(destination);
 };
 
-const getWritableCSVStream = () => {
-  const destination = path.resolve(__dirname, '..', '..', 'temp', 'data.csv');
-  const writer = createWriter({
-    path: destination,
+const getCSVStringifier = () => {
+  const stringifier = csvStringifier({
     header: [
       { id: 'name', title: 'name' },
       { id: 'curfew', title: 'curfew' },
@@ -55,54 +53,27 @@ const getWritableCSVStream = () => {
       { id: 'description_text_three', title: 'description_text_three' },
     ],
   });
-  return writer;
+  return stringifier;
 };
 
-const generateJSON = (count, batchSize, callback) => {
-  const stream = getWritableJSONStream();
+const generateData = (count, batchSize, callback) => {
+  const stream = getWritableStream('data.csv');
+  const stringifier = getCSVStringifier();
   let counter = count;
   const write = () => {
-    let ready = true;
-    while (ready) {
-      const data = getBatch(batchSize, JSON.stringify);
-      if (counter === count) {
-        ready = stream.write(`[${data.join(',')},`);
-        counter -= batchSize;
-      } else if (counter === 0) {
-        stream.end(']', callback);
-        ready = false;
-        return;
-      } else if (counter - batchSize === 0) {
-        ready = stream.write(`${data.join(',')}`);
-        counter -= batchSize;
-      } else {
-        ready = stream.write(`${data.join(',')},`);
-        counter -= batchSize;
-      }
-    }
-    if (counter >= 0) {
-      stream.once('drain', write);
+    const data = stringifier.stringifyRecords(getBatch(batchSize));
+    if (counter === 0) {
+      stream.end(callback);
+    } else if (counter === count) {
+      counter -= batchSize;
+      const header = stringifier.getHeaderString();
+      stream.write(`${header}${data}`, write);
+    } else {
+      counter -= batchSize;
+      stream.write(data, write);
     }
   };
   write();
-};
-
-const generateCSV = (count, batchSize, callback) => {
-  const stream = getWritableCSVStream();
-  let counter = count;
-  const results = [];
-  while (counter > 0) {
-    const batch = stream.writeRecords(getBatch(batchSize));
-    results.push(batch);
-    counter -= batchSize;
-  }
-  Promise.all(results)
-    .then((records) => {
-      callback(null, records);
-    })
-    .catch((error) => {
-      callback(error, null);
-    });
 };
 
 const test = () => {
@@ -111,6 +82,8 @@ const test = () => {
     generator(count, batchSize, (error) => {
       const end = Date.now();
       const elapsed = (end - start) / 1000;
+      const used = process.memoryUsage().heapUsed / 1024 / 1024;
+      console.log(`The script uses ~ ${Math.round(used * 100) / 100} MB`);
       if (error) {
         console.log(`An error occured in ${generator.name}:`, error);
       } else {
@@ -118,10 +91,9 @@ const test = () => {
       }
     });
   };
-  const count = 10000;
-  const batchSize = 1000;
-  // timeit(count, batchSize, generateJSON);
-  timeit(count, batchSize, generateCSV);
+  const count = 1000000;
+  const batchSize = 100;
+  timeit(count, batchSize, generateData);
 };
 
 test();
