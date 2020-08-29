@@ -14,7 +14,7 @@ const getBatch = (size, map = (input) => input) => {
 
 const getWritableStream = (filename) => {
   const destination = path.resolve(__dirname, '..', '..', 'temp', filename);
-  return fs.createWriteStream(destination);
+  return fs.createWriteStream(destination, { highWaterMark: 1048576 });
 };
 
 const getCSVStringifier = () => {
@@ -91,7 +91,7 @@ const test = () => {
       }
     });
   };
-  const count = 1000000;
+  const count = 10000;
   const batchSize = 100;
   timeit(count, batchSize, generateData);
 };
