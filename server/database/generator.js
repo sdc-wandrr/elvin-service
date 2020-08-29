@@ -66,7 +66,7 @@ const generateJSON = (count, batchSize, callback) => {
     while (ready) {
       const data = getBatch(batchSize, JSON.stringify);
       if (counter === count) {
-        ready = stream.write(`[${data.join(',')}`);
+        ready = stream.write(`[${data.join(',')},`);
         counter -= batchSize;
       } else if (counter === 0) {
         stream.end(']', callback);
@@ -97,31 +97,31 @@ const generateCSV = (count, batchSize, callback) => {
     counter -= batchSize;
   }
   Promise.all(results)
-    .then((results) => {
-      console.log('Write success!');
-      callback(null, results);
+    .then((records) => {
+      callback(null, records);
     })
     .catch((error) => {
-      console.log('Write error:', error);
       callback(error, null);
     });
 };
 
 const test = () => {
-  const count = 100000;
-  const batchSize = 10000;
-  const start = Date.now();
-  generateJSON(count, batchSize, () => {
-    const end = Date.now();
-    const elapsed = (end - start) / 1000;
-    console.log(`Generated ${count} records in ${elapsed} seconds`);
-  });
-
-  // generateCSV(count, batchSize, (error, results) => {
-  //   const end = Date.now();
-  //   const elapsed = (end - start) / 1000;
-  //   console.log(`Generated ${count} records in ${elapsed} seconds`);
-  // });
+  const timeit = (count, batchSize, generator) => {
+    const start = Date.now();
+    generator(count, batchSize, (error) => {
+      const end = Date.now();
+      const elapsed = (end - start) / 1000;
+      if (error) {
+        console.log(`An error occured in ${generator.name}:`, error);
+      } else {
+        console.log(`Generated ${count} records in ${elapsed} seconds.`);
+      }
+    });
+  };
+  const count = 10000;
+  const batchSize = 1000;
+  // timeit(count, batchSize, generateJSON);
+  timeit(count, batchSize, generateCSV);
 };
 
 test();
