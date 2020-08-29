@@ -1,4 +1,4 @@
-const db = require('./connect.js');
+const db = require('./client.js');
 
 const getRecordById = (id) => {
   const q = 'SELECT * FROM hostels WHERE id = $1';
