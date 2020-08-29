@@ -26,3 +26,4 @@ dist/
 .env
 public/bundle.js
 HW-infoService.zip
+temp/
