@@ -1,5 +1,5 @@
 const path = require('path');
-const db = require('./client.js');
+const db = require('../postgresql/client.js');
 const config = require('../../config/postgresql.js');
 
 const dropTable = () => {
@@ -50,13 +50,23 @@ const createTable = () => {
   return db.query(q);
 };
 
-const import = () => {
+const copyTable = () => {
+  const q = `COPY hostels FROM $1
+  WITH FORMAT csv, DELIMITER ',', HEADER TRUE, QUOTE '"', ESCAPE '\\'`;
+  const filepath = path.resolve(__dirname, '..', '..', '..', config.folder, config.filename);
+  return db.query(q, [filepath]);
+};
+
+const importData = () => {
   dropTable()
     .then(createTable)
-    .then()
+    .then(copyTable)
+    .then((results) => {
+      console.log('import success:', results);
+    })
     .catch((error) => {
       console.log('import error:', error);
     });
 };
 
-import();
+importData();
