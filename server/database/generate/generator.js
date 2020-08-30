@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const csvStringifier = require('csv-writer').createObjectCsvStringifier;
-const helpers = require('./generator-helpers');
+const utils = require('./utils');
 
 const getBatch = (size, map = (input) => input) => {
   const records = [];
   for (let i = 0; i < size; i += 1) {
-    const record = helpers.getRecord();
+    const record = utils.getRecord();
     records.push(map(record));
   }
   return records;
@@ -18,7 +18,7 @@ const getWritableStream = (filename) => {
 };
 
 const getCSVStringifier = () => {
-  const sample = helpers.getRecord();
+  const sample = utils.getRecord();
   const columns = Object.keys(sample);
   const stringifier = csvStringifier({
     header: columns.map((column) => ({ id: column, title: column })),
@@ -61,8 +61,8 @@ const test = () => {
       }
     });
   };
-  const count = 1;
-  const batchSize = 1;
+  const count = 10;
+  const batchSize = 10;
   timeit(count, batchSize, generateData);
 };
 
