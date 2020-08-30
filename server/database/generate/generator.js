@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const csvStringifier = require('csv-writer').createObjectCsvStringifier;
 const utils = require('./utils');
+const config = require('../../config/generate.js');
 
 const getBatch = (size, map = (input) => input) => {
   const records = [];
@@ -12,8 +13,8 @@ const getBatch = (size, map = (input) => input) => {
   return records;
 };
 
-const getWritableStream = (filename) => {
-  const destination = path.resolve(__dirname, '..', '..', 'temp', filename);
+const getWritableStream = () => {
+  const destination = path.resolve(__dirname, '..', '..', '..', config.folder, config.filename);
   return fs.createWriteStream(destination, { highWaterMark: 1048576 });
 };
 
@@ -27,7 +28,7 @@ const getCSVStringifier = () => {
 };
 
 const generateData = (count, batchSize, callback) => {
-  const stream = getWritableStream('data.csv');
+  const stream = getWritableStream();
   const stringifier = getCSVStringifier();
   let counter = count;
   const write = () => {
