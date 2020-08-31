@@ -3,9 +3,9 @@ const db = require('../database');
 const getRecordById = (req, res, next) => {
   db.postgresql.getRecordById(req.params.id)
     .then((data) => {
-      console.log('getRecord data:', { data: data.rows });
+      // console.log('getRecord data:', data);
       res.status(200);
-      res.json({ data: data.rows });
+      res.json(data.rows);
     })
     .catch((error) => {
       console.log('getRecord error:', error);
