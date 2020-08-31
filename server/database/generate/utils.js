@@ -140,7 +140,7 @@ const getRecord = () => {
   const adjOne = faker.random.arrayElement(constants.adj);
   const adjTwo = faker.random.arrayElement(constants.adj);
   const city = faker.address.city();
-  const name = `${adjOne} ${adjTwo} ${city}`;
+  const hostelName = `${adjOne} ${adjTwo} ${city}`;
   const checkInStart = checkInStartHelper();
   const checkInEnd = checkInEndHelper();
   const checkOut = checkOutHelper();
@@ -174,7 +174,7 @@ const getRecord = () => {
   const descriptionTwo = (faker.lorem.paragraphs(2));
   const descriptionThree = (faker.lorem.paragraphs(4));
   return {
-    name,
+    hostel_name: hostelName,
     curfew,
     cancellation,
     check_in_start: checkInStart,

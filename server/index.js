@@ -7,6 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
+app.use('/products/:id', express.static(path.resolve(__dirname, '..', 'public')));
 
 app.use((req, res, next) => {
   console.log(`${req.method} on ${req.path}:`, req.params, req.body);

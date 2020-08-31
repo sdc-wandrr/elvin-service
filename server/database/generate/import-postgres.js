@@ -11,7 +11,7 @@ const dropTable = () => {
 const createTable = () => {
   const q = `CREATE TABLE hostels (
   id SERIAL NOT NULL,
-  name VARCHAR(50) NOT NULL,
+  hostel_name VARCHAR(50) NOT NULL,
   editorial_text_one TEXT NOT NULL,
   editorial_text_two TEXT NOT NULL,
   description_text_one TEXT NOT NULL,
