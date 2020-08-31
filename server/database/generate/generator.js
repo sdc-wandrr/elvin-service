@@ -76,7 +76,7 @@ const test = () => {
       }
     });
   };
-  const count = 1000000;
+  const count = 10000000;
   const batchSize = 1000;
   timeit(count, batchSize, generateData);
 };
