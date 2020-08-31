@@ -62,8 +62,8 @@ const test = () => {
       }
     });
   };
-  const count = 10;
-  const batchSize = 10;
+  const count = 100;
+  const batchSize = 100;
   timeit(count, batchSize, generateData);
 };
 
