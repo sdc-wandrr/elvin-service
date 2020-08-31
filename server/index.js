@@ -14,6 +14,9 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/house/:id/hostel', routes.getRecordById);
+app.get('/api/house/:id/address', routes.getRecordById);
+app.get('/api/house/:id/rules', routes.getRecordById);
+app.get('/api/house/:id/description', routes.getRecordById);
 
 app.listen(config.PORT, () => {
   console.log(`Server is listening on ${config.PORT}`);
