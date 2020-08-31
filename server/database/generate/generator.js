@@ -50,20 +50,24 @@ const generateData = (count, batchSize, callback) => {
 const test = () => {
   const timeit = (count, batchSize, generator) => {
     const start = Date.now();
-    generator(count, batchSize, (error) => {
+    const measure = () => {
       const end = Date.now();
       const elapsed = (end - start) / 1000;
       const used = process.memoryUsage().heapUsed / 1024 / 1024;
-      console.log(`The script uses ~ ${Math.round(used * 100) / 100} MB`);
+      console.log(`The script used ~ ${Math.round(used * 100) / 100} MB`);
+      console.log(`Completed in ${elapsed} seconds.`);
+    };
+    generator(count, batchSize, (error) => {
+      measure();
       if (error) {
-        console.log(`An error occured in ${generator.name}:`, error);
+        console.log('Generator error:', error);
       } else {
-        console.log(`Generated ${count} records in ${elapsed} seconds.`);
+        console.log(`Generated ${count} records.`);
       }
     });
   };
-  const count = 100;
-  const batchSize = 100;
+  const count = 1000000;
+  const batchSize = 1000;
   timeit(count, batchSize, generateData);
 };
 

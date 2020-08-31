@@ -11,7 +11,7 @@ const dropTable = () => {
 const createTable = () => {
   const q = `CREATE TABLE hostels (
   id SERIAL NOT NULL,
-  hostel_name VARCHAR(50) NOT NULL,
+  hostel_name VARCHAR(64) NOT NULL,
   editorial_text_one TEXT NOT NULL,
   editorial_text_two TEXT NOT NULL,
   description_text_one TEXT NOT NULL,
@@ -35,10 +35,10 @@ const createTable = () => {
   important_notes_four TEXT NOT NULL,
   important_notes_five TEXT NOT NULL,
   street_address VARCHAR(100) NOT NULL,
-  city VARCHAR(50) NOT NULL,
-  state CHAR(25) NOT NULL,
+  city VARCHAR(64) NOT NULL,
+  state CHAR(32) NOT NULL,
   zip INT NOT NULL,
-  country CHAR(50) NOT NULL,
+  country CHAR(64) NOT NULL,
   country_code CHAR(5) NOT NULL,
   latitude DECIMAL(10, 8) NOT NULL,
   longitude DECIMAL(11, 8) NOT NULL,
@@ -56,14 +56,25 @@ const copyTable = () => {
 };
 
 const importData = () => {
+  const start = Date.now();
+  const measure = () => {
+    const end = Date.now();
+    const elapsed = (end - start) / 1000;
+    const used = process.memoryUsage().heapUsed / 1024 / 1024;
+    console.log(`The script uses ~ ${Math.round(used * 100) / 100} MB`);
+    console.log(`Completed in ${elapsed} seconds.`);
+  };
   dropTable()
     .then(createTable)
     .then(copyTable)
     .then((results) => {
-      console.log('import success:', results);
+      measure();
+      const count = results.rowCount;
+      console.log(`Imported ${count} records.`);
     })
     .catch((error) => {
-      console.log('import error:', error);
+      measure();
+      console.log('Import error:', error);
     });
 };
 
