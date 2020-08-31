@@ -5,11 +5,15 @@ const utils = require('./utils');
 const config = require('../../config/generate.js');
 
 const getBatch = (size, map = (input) => input) => {
+  // const start = Date.now();
   const records = [];
   for (let i = 0; i < size; i += 1) {
     const record = utils.getRecord();
     records.push(map(record));
   }
+  // const end = Date.now();
+  // const elapsed = (end - start) / 1000;
+  // console.log(`Generated ${size} records in ${elapsed} seconds.`);
   return records;
 };
 
@@ -38,8 +42,7 @@ const generateData = (count, batchSize, callback) => {
     const end = Date.now();
     elapsed += (end - start) / 1000;
     if (counter === 0) {
-      console.log(`Generated ${count} records in ${elapsed} seconds.`);
-      stream.end(callback);
+      stream.end((error) => (callback(error, elapsed)));
     } else if (counter === count) {
       counter -= batchSize;
       const header = stringifier.getHeaderString();
@@ -55,19 +58,21 @@ const generateData = (count, batchSize, callback) => {
 const test = () => {
   const timeit = (count, batchSize, generator) => {
     const start = Date.now();
-    const measure = () => {
+    const measure = (genElapsed) => {
       const end = Date.now();
       const elapsed = (end - start) / 1000;
       const used = process.memoryUsage().heapUsed / 1024 / 1024;
       console.log(`The script used ~ ${Math.round(used * 100) / 100} MB`);
-      console.log(`Completed in ${elapsed} seconds.`);
+      console.log(`Data generation completed in ${genElapsed} seconds.`);
+      console.log(`Data commit completed in ${elapsed - genElapsed} seconds.`);
+      console.log(`Total time to complete the operation was ${elapsed} seconds.`);
     };
-    generator(count, batchSize, (error) => {
-      measure();
+    generator(count, batchSize, (error, elapsed) => {
+      measure(elapsed);
       if (error) {
         console.log('Generator error:', error);
       } else {
-        console.log(`Generated and commited ${count} records.`);
+        console.log(`Generated and committed ${count} records.`);
       }
     });
   };
