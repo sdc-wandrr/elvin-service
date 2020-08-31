@@ -5,11 +5,15 @@ const utils = require('./utils');
 const config = require('../../config/generate.js');
 
 const getBatch = (size, map = (input) => input) => {
+  const start = Date.now();
   const records = [];
   for (let i = 0; i < size; i += 1) {
     const record = utils.getRecord();
     records.push(map(record));
   }
+  const end = Date.now();
+  const elapsed = (end - start) / 1000;
+  console.log(`Generated batch of ${size} records in ${elapsed} seconds.`);
   return records;
 };
 
