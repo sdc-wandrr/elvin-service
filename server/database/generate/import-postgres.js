@@ -69,6 +69,7 @@ const importData = () => {
     .then(copyTable)
     .then((results) => {
       measure();
+      console.log('Import success:', results);
       const count = results.rowCount;
       console.log(`Imported ${count} records.`);
     })
