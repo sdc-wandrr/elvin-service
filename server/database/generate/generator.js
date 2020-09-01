@@ -1,24 +1,29 @@
 const fs = require('fs');
 const path = require('path');
 const csvStringifier = require('csv-writer').createObjectCsvStringifier;
-const helpers = require('./generator-helpers');
+const utils = require('./utils');
+const config = require('../../config/generate.js');
 
 const getBatch = (size, map = (input) => input) => {
+  // const start = Date.now();
   const records = [];
   for (let i = 0; i < size; i += 1) {
-    const record = helpers.getRecord();
+    const record = utils.getRecord();
     records.push(map(record));
   }
+  // const end = Date.now();
+  // const elapsed = (end - start) / 1000;
+  // console.log(`Generated ${size} records in ${elapsed} seconds.`);
   return records;
 };
 
-const getWritableStream = (filename) => {
-  const destination = path.resolve(__dirname, '..', '..', 'temp', filename);
+const getWritableStream = () => {
+  const destination = path.resolve(__dirname, '..', '..', '..', config.folder, config.filename);
   return fs.createWriteStream(destination, { highWaterMark: 1048576 });
 };
 
 const getCSVStringifier = () => {
-  const sample = helpers.getRecord();
+  const sample = utils.getRecord();
   const columns = Object.keys(sample);
   const stringifier = csvStringifier({
     header: columns.map((column) => ({ id: column, title: column })),
@@ -27,13 +32,17 @@ const getCSVStringifier = () => {
 };
 
 const generateData = (count, batchSize, callback) => {
-  const stream = getWritableStream('data.csv');
+  const stream = getWritableStream();
   const stringifier = getCSVStringifier();
   let counter = count;
+  let elapsed = 0;
   const write = () => {
+    const start = Date.now();
     const data = stringifier.stringifyRecords(getBatch(batchSize));
+    const end = Date.now();
+    elapsed += (end - start) / 1000;
     if (counter === 0) {
-      stream.end(callback);
+      stream.end((error) => (callback(error, elapsed)));
     } else if (counter === count) {
       counter -= batchSize;
       const header = stringifier.getHeaderString();
@@ -49,20 +58,26 @@ const generateData = (count, batchSize, callback) => {
 const test = () => {
   const timeit = (count, batchSize, generator) => {
     const start = Date.now();
-    generator(count, batchSize, (error) => {
+    const measure = (genElapsed) => {
       const end = Date.now();
       const elapsed = (end - start) / 1000;
       const used = process.memoryUsage().heapUsed / 1024 / 1024;
-      console.log(`The script uses ~ ${Math.round(used * 100) / 100} MB`);
+      console.log(`The script used ~ ${Math.round(used * 100) / 100} MB`);
+      console.log(`Data generation completed in ${genElapsed} seconds.`);
+      console.log(`Data commit completed in ${elapsed - genElapsed} seconds.`);
+      console.log(`Total time to complete the operation was ${elapsed} seconds.`);
+    };
+    generator(count, batchSize, (error, elapsed) => {
+      measure(elapsed);
       if (error) {
-        console.log(`An error occured in ${generator.name}:`, error);
+        console.log('Generator error:', error);
       } else {
-        console.log(`Generated ${count} records in ${elapsed} seconds.`);
+        console.log(`Generated and committed ${count} records.`);
       }
     });
   };
-  const count = 1;
-  const batchSize = 1;
+  const count = 10000000;
+  const batchSize = 1000;
   timeit(count, batchSize, generateData);
 };
 

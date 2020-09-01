@@ -13,11 +13,12 @@
     "url": "git://github.com/hrr47-karev/property-info-service"
   },
   "scripts": {
-    "build-dev": "webpack -d --watch",
-    "build-deploy": "webpack --config webpack.prod.js",
-    "start": "node server/start.js",
-    "start-dev": "nodemon server/start.js",
-    "generate": "node server/database/generator.js",
+    "client-dev": "webpack -d --watch",
+    "client-build": "webpack --config webpack.prod.js",
+    "server": "node server/index.js",
+    "server-dev": "nodemon server/index.js",
+    "generate": "node server/database/generate/generator.js",
+    "import-postgres": "node server/database/generate/import-postgres.js",
     "test": "jest --forceExit --coverage --no-cache",
     "test:watch": "jest --watch --runInBand"
   },
@@ -34,6 +35,7 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "mysql": "^2.18.1",
+    "pg": "^8.3.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -27,3 +27,5 @@ dist/
 public/bundle.js
 HW-infoService.zip
 temp/
+config/
+package-lock.json
