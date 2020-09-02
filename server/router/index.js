@@ -1,7 +1,7 @@
 const db = require('../database');
 
 const getRecordById = (req, res, next) => {
-  db.postgresql.getRecordById(req.params.id)
+  db.cassandra.getRecordById(req.params.id)
     .then((data) => {
       // console.log('getRecord data:', data);
       res.status(200);
