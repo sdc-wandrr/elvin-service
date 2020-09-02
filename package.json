@@ -19,6 +19,7 @@
     "server-dev": "nodemon server/index.js",
     "generate": "node server/database/generate/generator.js",
     "import-postgres": "node server/database/generate/import-postgres.js",
+    "import-cassandra": "node server/database/generate/import-cassandra.js",
     "test": "jest --forceExit --coverage --no-cache",
     "test:watch": "jest --watch --runInBand"
   },
