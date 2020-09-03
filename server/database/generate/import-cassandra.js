@@ -28,38 +28,38 @@ const dropTable = () => {
 
 const createTable = () => {
   const q = `CREATE TABLE hostel.hostels (
-  id INT NOT NULL,
-  hostel_name VARCHAR(64) NOT NULL,
-  editorial_text_one TEXT NOT NULL,
-  editorial_text_two TEXT NOT NULL,
-  description_text_one TEXT NOT NULL,
-  description_text_two TEXT NOT NULL,
-  description_text_three TEXT NOT NULL,
-  check_in_start TIME NOT NULL,
-  check_in_end TIME NOT NULL,
-  check_out TIME NOT NULL,
-  kid_friendly SMALLINT NOT NULL,
-  credit_cards SMALLINT NOT NULL,
-  age_restriction SMALLINT NOT NULL,
-  curfew SMALLINT NOT NULL,
-  lock_out SMALLINT NOT NULL,
-  non_smoking SMALLINT NOT NULL,
-  pet_friendly SMALLINT NOT NULL,
-  taxes_included SMALLINT NOT NULL,
-  cancellation VARCHAR(500) NOT NULL,
-  important_notes_one TEXT NOT NULL,
-  important_notes_two TEXT NOT NULL,
-  important_notes_three TEXT NOT NULL,
-  important_notes_four TEXT NOT NULL,
-  important_notes_five TEXT NOT NULL,
-  street_address VARCHAR(100) NOT NULL,
-  city VARCHAR(64) NOT NULL,
-  state CHAR(32) NOT NULL,
-  zip INT NOT NULL,
-  country CHAR(64) NOT NULL,
-  country_code CHAR(5) NOT NULL,
-  latitude DECIMAL(10, 8) NOT NULL,
-  longitude DECIMAL(11, 8) NOT NULL,
+  id INT,
+  hostel_name VARCHAR,
+  editorial_text_one TEXT,
+  editorial_text_two TEXT,
+  description_text_one TEXT,
+  description_text_two TEXT,
+  description_text_three TEXT,
+  check_in_start TIME,
+  check_in_end TIME,
+  check_out TIME,
+  kid_friendly SMALLINT,
+  credit_cards SMALLINT,
+  age_restriction SMALLINT,
+  curfew SMALLINT,
+  lock_out SMALLINT,
+  non_smoking SMALLINT,
+  pet_friendly SMALLINT,
+  taxes_included SMALLINT,
+  cancellation VARCHAR,
+  important_notes_one TEXT,
+  important_notes_two TEXT,
+  important_notes_three TEXT,
+  important_notes_four TEXT,
+  important_notes_five TEXT,
+  street_address VARCHAR,
+  city VARCHAR,
+  state VARCHAR,
+  zip INT,
+  country VARCHAR,
+  country_code VARCHAR,
+  latitude DECIMAL,
+  longitude DECIMAL,
   PRIMARY KEY (id)
   )`;
   return db.execute(q);
@@ -75,7 +75,7 @@ const loadTableData = () => {
 
 const bulkLoadTableData = () => {
   const filepath = path.resolve(__dirname, '..', '..', '..', config.folder, config.filename);
-  const command = `dsbulk load -url ${filepath} -k ks1 -t table1 -h '10.200.1.3, 10.200.1.4' -header true`;
+  const command = `dsbulk load -url ${filepath} -k hostel -t hostels -h 'localhost' -header true`;
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
@@ -102,11 +102,11 @@ const importData = () => {
     .then(dropTable)
     .then(createTable)
     .then(bulkLoadTableData)
-    .then((results) => {
+    .then((results, results2) => {
       measure();
-      console.log('Import success:', results);
-      const count = results.rowCount;
-      console.log(`Imported ${count} records.`);
+      console.log('Import success:', results, results2);
+      // const count = results.rowCount;
+      // console.log(`Imported ${count} records.`);
     })
     .catch((error) => {
       measure();
