@@ -8,7 +8,7 @@ const getTime = (range) => {
   let minutes = faker.random.arrayElement([0, 15, 30, 45]);
   hour = hour < 10 ? 0 + hour.toString() : hour.toString();
   minutes = minutes < 10 ? 0 + minutes.toString() : minutes.toString();
-  return `${hour}${minutes}00`;
+  return `${hour}:${minutes}:00`;
 };
 
 const checkInStartHelper = () => {
@@ -25,12 +25,12 @@ const checkOutHelper = () => {
 
 // ***************LESS EFFICIENT***************
 
-// const getHostel = () => {
+// const getHostel = (id = 1) => {
 //   const adjOne = faker.random.arrayElement(constants.adj);
 //   const adjTwo = faker.random.arrayElement(constants.adj);
 //   const city = faker.address.city();
 //   const name = `${adjOne} ${adjTwo} ${city}`;
-//   return { name };
+//   return { id, name };
 // };
 
 // const getRule = () => {
@@ -136,7 +136,7 @@ const checkOutHelper = () => {
 
 // ***************MORE EFFICIENT***************
 
-// const getRecord = () => {
+// const getRecord = (id = 1) => {
 //   const adjOne = faker.random.arrayElement(constants.adj);
 //   const adjTwo = faker.random.arrayElement(constants.adj);
 //   const city = faker.address.city();
@@ -174,6 +174,7 @@ const checkOutHelper = () => {
 //   const descriptionTwo = (faker.lorem.paragraphs(2));
 //   const descriptionThree = (faker.lorem.paragraphs(4));
 //   return {
+//     id,
 //     hostel_name: hostelName,
 //     curfew,
 //     cancellation,
@@ -210,7 +211,7 @@ const checkOutHelper = () => {
 
 // ***************LESS DATA***************
 
-const getRecord = () => {
+const getRecord = (id = 1) => {
   const adjOne = faker.random.arrayElement(constants.adj);
   const adjTwo = faker.random.arrayElement(constants.adj);
   const city = faker.address.city();
@@ -248,6 +249,7 @@ const getRecord = () => {
   const descriptionTwo = (faker.lorem.sentences(1));
   const descriptionThree = (faker.lorem.sentences(1));
   return {
+    id,
     hostel_name: hostelName,
     curfew,
     cancellation,
