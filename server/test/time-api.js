@@ -17,16 +17,18 @@ const timeRequest = (id, callback) => {
     });
 };
 
+const average = (array) => {
+  const sum = array.reduce((accumulator, item) => (accumulator + item));
+  return sum / array.length;
+};
+
+const getId = () => {
+  return Math.floor(Math.random() * 1000000) + 9000000;
+};
+
 const test = () => {
   let total = [];
   let counter = 1000;
-  const average = (array) => {
-    const sum = array.reduce((accumulator, item) => (accumulator + item));
-    return sum / array.length;
-  };
-  const getId = () => {
-    return Math.floor(Math.random() * 1000000) + 9000000;
-  };
   const results = (error, elapsed, response) => {
     total.push(elapsed);
     if (error) {
