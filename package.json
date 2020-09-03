@@ -21,7 +21,7 @@
     "import-postgres": "node server/database/generate/import-postgres.js",
     "import-cassandra": "node server/database/generate/import-cassandra.js",
     "test": "jest --forceExit --coverage --no-cache",
-    "time": "node server/test/time.js",
+    "time-api": "node server/test/time-api.js",
     "test:watch": "jest --watch --runInBand"
   },
   "jest": {

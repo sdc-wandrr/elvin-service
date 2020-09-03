@@ -1,23 +1,25 @@
 const axios = require('axios');
+const config = require('../config/server.js');
 
 const timeRequest = (id, callback) => {
+  const path = `http://localhost:${config.PORT}/api/house/${id}/hostel`;
   const start = Date.now();
-  axios.get('/api/house/:id/hostel')
+  axios.get(path)
     .then((results) => {
       const end = Date.now();
-      const elapsed = (end - start) / 1000;
+      const elapsed = (end - start);
       callback(null, elapsed, results);
     })
     .catch((error) => {
       const end = Date.now();
-      const elapsed = (end - start) / 1000;
+      const elapsed = (end - start);
       callback(error, elapsed);
     });
 };
 
 const test = () => {
   let total = [];
-  let counter = 1;
+  let counter = 1000;
   const average = (array) => {
     const sum = array.reduce((accumulator, item) => (accumulator + item));
     return sum / array.length;
@@ -34,7 +36,7 @@ const test = () => {
       timeRequest(getId(), results);
     } else {
       const avg = average(total);
-      console.log(`Average time to complete ${counter} requests is ${avg}`);
+      console.log(`Average time of completing ${counter} requests is ${avg} milliseconds`);
     }
   };
   timeRequest(getId(), results);
