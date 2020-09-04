@@ -4,8 +4,7 @@ const getRecordById = (req, res, next) => {
   db.postgresql.getRecordById(req.params.id)
     .then((data) => {
       // console.log('getRecordById data:', data);
-      res.status(200);
-      res.json(data.rows);
+      res.status(200).json(data.rows);
     })
     .catch((error) => {
       console.log('getRecordById error:', error);
@@ -17,8 +16,7 @@ const getHostelById = (req, res, next) => {
   db.postgresql.getHostelById(req.params.id)
     .then((data) => {
       // console.log('getHostelById data:', data);
-      res.status(200);
-      res.json(data.rows);
+      res.status(200).json(data.rows);
     })
     .catch((error) => {
       console.log('getHostelById error:', error);
@@ -30,8 +28,7 @@ const getAddressByHostelId = (req, res, next) => {
   db.postgresql.getAddressByHostelId(req.params.id)
     .then((data) => {
       // console.log('getAddressByHostelId data:', data);
-      res.status(200);
-      res.json(data.rows);
+      res.status(200).json(data.rows);
     })
     .catch((error) => {
       console.log('getAddressByHostelId error:', error);
@@ -43,8 +40,7 @@ const getRulesByHostelId = (req, res, next) => {
   db.postgresql.getRulesByHostelId(req.params.id)
     .then((data) => {
       // console.log('getRulesByHostelId data:', data);
-      res.status(200);
-      res.json(data.rows);
+      res.status(200).json(data.rows);
     })
     .catch((error) => {
       console.log('getRulesByHostelId error:', error);
@@ -56,8 +52,7 @@ const getDescriptionByHostelId = (req, res, next) => {
   db.postgresql.getDescriptionByHostelId(req.params.id)
     .then((data) => {
       // console.log('getDescriptionByHostelId data:', data);
-      res.status(200);
-      res.json(data.rows);
+      res.status(200).json(data.rows);
     })
     .catch((error) => {
       console.log('getDescriptionByHostelId error:', error);
