@@ -19,7 +19,10 @@
     "server-dev": "nodemon server/index.js",
     "generate": "node server/database/generate/generator.js",
     "import-postgres": "node server/database/generate/import-postgres.js",
+    "import-cassandra": "node server/database/generate/import-cassandra.js",
     "test": "jest --forceExit --coverage --no-cache",
+    "time-api": "node server/test/time-api.js",
+    "time-database": "node server/test/time-database.js",
     "test:watch": "jest --watch --runInBand"
   },
   "jest": {
@@ -30,6 +33,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "cassandra-driver": "^4.6.0",
     "core-js": "^3.6.5",
     "csv-writer": "^1.6.0",
     "express": "^4.17.1",

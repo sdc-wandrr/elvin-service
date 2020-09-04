@@ -4,11 +4,11 @@ const csvStringifier = require('csv-writer').createObjectCsvStringifier;
 const utils = require('./utils');
 const config = require('../../config/generate.js');
 
-const getBatch = (size, map = (input) => input) => {
+const getBatch = (counter, size, map = (input) => input) => {
   // const start = Date.now();
   const records = [];
-  for (let i = 0; i < size; i += 1) {
-    const record = utils.getRecord();
+  for (let id = counter; id <= (counter + size); id += 1) {
+    const record = utils.getRecord(id);
     records.push(map(record));
   }
   // const end = Date.now();
@@ -34,21 +34,21 @@ const getCSVStringifier = () => {
 const generateData = (count, batchSize, callback) => {
   const stream = getWritableStream();
   const stringifier = getCSVStringifier();
-  let counter = count;
+  let counter = 1;
   let elapsed = 0;
   const write = () => {
     const start = Date.now();
-    const data = stringifier.stringifyRecords(getBatch(batchSize));
+    const data = stringifier.stringifyRecords(getBatch(counter, batchSize));
     const end = Date.now();
     elapsed += (end - start) / 1000;
-    if (counter === 0) {
+    if (counter === count + 1) {
       stream.end((error) => (callback(error, elapsed)));
-    } else if (counter === count) {
-      counter -= batchSize;
+    } else if (counter === 1) {
+      counter += batchSize;
       const header = stringifier.getHeaderString();
       stream.write(`${header}${data}`, write);
     } else {
-      counter -= batchSize;
+      counter += batchSize;
       stream.write(data, write);
     }
   };
@@ -76,8 +76,8 @@ const test = () => {
       }
     });
   };
-  const count = 10000000;
-  const batchSize = 1000;
+  const count = 100;
+  const batchSize = 100;
   timeit(count, batchSize, generateData);
 };
 
