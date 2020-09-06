@@ -40,8 +40,8 @@ const createTable = () => {
   zip INT NOT NULL,
   country CHAR(64) NOT NULL,
   country_code CHAR(5) NOT NULL,
-  latitude DECIMAL(10, 8) NOT NULL,
-  longitude DECIMAL(11, 8) NOT NULL,
+  latitude FLOAT(53) NOT NULL,
+  longitude FLOAT(53) NOT NULL,
   PRIMARY KEY (id)
   )`;
   return db.query(q);
