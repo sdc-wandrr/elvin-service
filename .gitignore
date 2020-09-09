@@ -27,6 +27,7 @@ dist/
 public/bundle.js
 HW-infoService.zip
 temp/
-config/
+*key*.js
+*secret*.js
 package-lock.json
 newrelic.js
