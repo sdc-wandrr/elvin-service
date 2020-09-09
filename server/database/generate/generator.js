@@ -7,7 +7,7 @@ const config = require('../../config/generate.js');
 const getBatch = (counter, size, map = (input) => input) => {
   // const start = Date.now();
   const records = [];
-  for (let id = counter; id <= (counter + size); id += 1) {
+  for (let id = counter; id < (counter + size); id += 1) {
     const record = utils.getRecord(id);
     records.push(map(record));
   }
@@ -76,9 +76,8 @@ const test = () => {
       }
     });
   };
-  const count = 100;
-  const batchSize = 100;
-  timeit(count, batchSize, generateData);
+  const { count, batch } = config;
+  timeit(count, batch, generateData);
 };
 
 test();
