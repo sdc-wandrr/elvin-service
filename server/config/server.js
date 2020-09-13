@@ -1,3 +1,3 @@
 module.exports = {
-  PORT: 3000,
+  PORT: process.argv[2] || 3000,
 };

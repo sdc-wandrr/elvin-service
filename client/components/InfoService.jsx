@@ -90,10 +90,11 @@ class InfoService extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const property = this.state;
     if (prevState.id !== property.id) {
-      this.getPropertyName();
-      this.getPropertyAddress();
-      this.getPropertyDescription();
-      this.getPropertyRules();
+      this.getPropertyInfo();
+      // this.getPropertyName();
+      // this.getPropertyAddress();
+      // this.getPropertyDescription();
+      // this.getPropertyRules();
     }
   }
 
@@ -105,37 +106,9 @@ class InfoService extends React.Component {
     this.setState({ id: newID });
   }
 
-  getPropertyName() {
+  getPropertyInfo() {
     const property = this.state;
-    Axios.get(`/api/house/${property.id}/hostel`)
-      .then((res) => {
-        const data = res.data[0];
-        this.setState({
-          name: data.hostel_name,
-        });
-      })
-      .catch((err) => err);
-  }
-
-  getPropertyAddress() {
-    const property = this.state;
-    Axios.get(`/api/house/${property.id}/address`)
-      .then((res) => {
-        const data = res.data[0];
-        this.setState({
-          street: data.street_address,
-          city: data.city,
-          country: data.country,
-          latitude: data.latitude,
-          longitude: data.longitude,
-        });
-      })
-      .catch((err) => err);
-  }
-
-  getPropertyRules() {
-    const property = this.state;
-    Axios.get(`/api/house/${property.id}/rules`)
+    Axios.get(`/api/house/${property.id}`)
       .then((res) => {
         const data = res.data[0];
         const kidFriendlyBoo = data.kid_friendly === 1 ? 'Child Friendly' : 'No Children Allowed';
@@ -147,6 +120,12 @@ class InfoService extends React.Component {
         const petFriendlyBoo = data.pet_friendly === 1 ? 'Pet Friendly' : 'No Pets Allowed';
         const taxesIncludedBoo = data.taxes_included === 1 ? 'Taxes Included' : 'Taxes Not Included';
         this.setState({
+          name: data.hostel_name,
+          street: data.street_address,
+          city: data.city,
+          country: data.country,
+          latitude: data.latitude,
+          longitude: data.longitude,
           checkInStart: data.check_in_start,
           checkInEnd: data.check_in_end,
           checkOut: data.check_out,
@@ -164,27 +143,95 @@ class InfoService extends React.Component {
           importantNotesThree: data.important_notes_three,
           importantNotesFour: data.important_notes_four,
           importantNotesFive: data.important_notes_five,
-        });
-      })
-      .catch((err) => err);
-  }
-
-  getPropertyDescription() {
-    const property = this.state;
-    Axios.get(`/api/house/${property.id}/description`)
-      .then((res) => {
-        const data = res.data[0];
-        this.setState({
           editorialOne: data.editorial_text_one,
           editorialTwo: data.editorial_text_two,
           descriptionOne: data.description_text_one,
           descriptionTwo: data.description_text_two,
           descriptionThree: data.description_text_three,
-
         });
       })
       .catch((err) => err);
   }
+
+  // getPropertyName() {
+  //   const property = this.state;
+  //   Axios.get(`/api/house/${property.id}/hostel`)
+  //     .then((res) => {
+  //       const data = res.data[0];
+  //       this.setState({
+  //         name: data.hostel_name,
+  //       });
+  //     })
+  //     .catch((err) => err);
+  // }
+
+  // getPropertyAddress() {
+  //   const property = this.state;
+  //   Axios.get(`/api/house/${property.id}/address`)
+  //     .then((res) => {
+  //       const data = res.data[0];
+  //       this.setState({
+  //         street: data.street_address,
+  //         city: data.city,
+  //         country: data.country,
+  //         latitude: data.latitude,
+  //         longitude: data.longitude,
+  //       });
+  //     })
+  //     .catch((err) => err);
+  // }
+
+  // getPropertyRules() {
+  //   const property = this.state;
+  //   Axios.get(`/api/house/${property.id}/rules`)
+  //     .then((res) => {
+  //       const data = res.data[0];
+  //       const kidFriendlyBoo = data.kid_friendly === 1 ? 'Child Friendly' : 'No Children Allowed';
+  //       const creditCardsBoo = data.credit_cards === 1 ? 'Credit Cards Accepted' : 'Credit Cards Not Accepted';
+  //       const ageRestrictionBoo = data.age_restriction === 1 ? 'Age Restrictions' : 'No Age Restrictions';
+  //       const curfewBoo = data.curfew === 1 ? 'Curfew Enforced' : 'No Curfew';
+  //       const lockOutBoo = data.lock_out === 1 ? 'Lock Out Policy' : 'No Lockout Policy';
+  //       const nonSmokingBoo = data.non_smoking === 1 ? 'Non-Smoking' : 'Smoking Allowed';
+  //       const petFriendlyBoo = data.pet_friendly === 1 ? 'Pet Friendly' : 'No Pets Allowed';
+  //       const taxesIncludedBoo = data.taxes_included === 1 ? 'Taxes Included' : 'Taxes Not Included';
+  //       this.setState({
+  //         checkInStart: data.check_in_start,
+  //         checkInEnd: data.check_in_end,
+  //         checkOut: data.check_out,
+  //         kidFriendly: kidFriendlyBoo,
+  //         creditCards: creditCardsBoo,
+  //         ageRestriction: ageRestrictionBoo,
+  //         curfew: curfewBoo,
+  //         lockOut: lockOutBoo,
+  //         nonSmoking: nonSmokingBoo,
+  //         petFriendly: petFriendlyBoo,
+  //         taxesIncluded: taxesIncludedBoo,
+  //         cancellation: data.cancellation,
+  //         importantNotesOne: data.important_notes_one,
+  //         importantNotesTwo: data.important_notes_two,
+  //         importantNotesThree: data.important_notes_three,
+  //         importantNotesFour: data.important_notes_four,
+  //         importantNotesFive: data.important_notes_five,
+  //       });
+  //     })
+  //     .catch((err) => err);
+  // }
+
+  // getPropertyDescription() {
+  //   const property = this.state;
+  //   Axios.get(`/api/house/${property.id}/description`)
+  //     .then((res) => {
+  //       const data = res.data[0];
+  //       this.setState({
+  //         editorialOne: data.editorial_text_one,
+  //         editorialTwo: data.editorial_text_two,
+  //         descriptionOne: data.description_text_one,
+  //         descriptionTwo: data.description_text_two,
+  //         descriptionThree: data.description_text_three,
+  //       });
+  //     })
+  //     .catch((err) => err);
+  // }
 
   render() {
     const property = this.state;
