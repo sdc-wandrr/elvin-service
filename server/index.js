@@ -20,11 +20,12 @@ app.use((req, res, next) => {
 // app.get('/api/house/:id/rules', routes.getRecordById);
 // app.get('/api/house/:id/description', routes.getRecordById);
 
-app.get('/api/house/:id', routes.getRecordById);
-app.get('/api/house/:id/hostel', routes.getHostelById);
-app.get('/api/house/:id/address', routes.getAddressByHostelId);
-app.get('/api/house/:id/rules', routes.getRulesByHostelId);
-app.get('/api/house/:id/description', routes.getDescriptionByHostelId);
+app.get('/api/house/:id', routes.getRecordsByIdRange);
+// app.get('/api/house/:id', routes.getRecordById);
+// app.get('/api/house/:id/hostel', routes.getHostelById);
+// app.get('/api/house/:id/address', routes.getAddressByHostelId);
+// app.get('/api/house/:id/rules', routes.getRulesByHostelId);
+// app.get('/api/house/:id/description', routes.getDescriptionByHostelId);
 
 app.listen(config.PORT, () => {
   console.log(`Server is listening on ${config.PORT}`);
