@@ -1,5 +1,18 @@
 const db = require('./client.js');
 
+const getRecordsByIdRange = (id, range = 100) => {
+  const query = 'SELECT * FROM hostels WHERE id > $1 AND id < $2';
+  const mid = Math.floor(range / 2);
+  const start = Number(id) - mid;
+  const end = Number(id) + mid;
+  const q = {
+    name: 'record-by-id',
+    text: query,
+    values: [start, end],
+  };
+  return db.query(q);
+};
+
 const getRecordById = (id) => {
   const query = 'SELECT * FROM hostels WHERE id = $1';
   const q = {
@@ -58,6 +71,7 @@ const getDescriptionByHostelId = (id) => {
   return db.query(q);
 };
 
+module.exports.getRecordsByIdRange = getRecordsByIdRange;
 module.exports.getRecordById = getRecordById;
 module.exports.getHostelById = getHostelById;
 module.exports.getAddressByHostelId = getAddressByHostelId;
