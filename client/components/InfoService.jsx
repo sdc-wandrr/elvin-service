@@ -110,7 +110,7 @@ class InfoService extends React.Component {
     const property = this.state;
     Axios.get(`/api/house/${property.id}`)
       .then((res) => {
-        const data = res.data[0];
+        const { data } = res;
         const kidFriendlyBoo = data.kid_friendly === 1 ? 'Child Friendly' : 'No Children Allowed';
         const creditCardsBoo = data.credit_cards === 1 ? 'Credit Cards Accepted' : 'Credit Cards Not Accepted';
         const ageRestrictionBoo = data.age_restriction === 1 ? 'Age Restrictions' : 'No Age Restrictions';
