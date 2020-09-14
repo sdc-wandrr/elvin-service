@@ -17,7 +17,7 @@ const get = (query) => (
   (req, res) => {
     getCache(req.params.id, query)
       .then((record) => {
-        console.log(`${query.name} record:`, record);
+        // console.log(`${query.name} record:`, record);
         res.status(200).type('application/json').end(record);
       })
       .catch((error) => {
