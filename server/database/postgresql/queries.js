@@ -3,10 +3,12 @@ const db = require('./client.js');
 const getRecordsByIdRange = (id, range = 100) => {
   const query = 'SELECT * FROM hostels WHERE id > $1 AND id < $2';
   const mid = Math.floor(range / 2);
+  const start = Number(id) - mid;
+  const end = Number(id) + mid;
   const q = {
     name: 'record-by-id',
     text: query,
-    values: [id - mid, id + mid],
+    values: [start, end],
   };
   return db.query(q);
 };

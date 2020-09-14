@@ -6,11 +6,11 @@ const getCache = (id, query) => (
     .then((getReply) => {
       if (getReply !== null) return getReply;
       return query(id)
-        .then((data) => cache.setMulti(data.rows)
-          .then((multiReply) => {
-            if (multiReply === 'OK') return cache.get(id);
+        .then((data) => (cache.setMulti(data.rows)
+          .then((replies) => {
+            if (replies.length === data.rows.length) return cache.get(id);
             return JSON.stringify(data.rows[Math.floor(data.rows.length / 2)]);
-          }));
+          })));
     }));
 
 const get = (query) => (
@@ -18,7 +18,7 @@ const get = (query) => (
     getCache(req.params.id, query)
       .then((record) => {
         // console.log(`${query.name} record:`, record);
-        res.status(200).end(record);
+        res.status(200).type('application/json').end(record);
       })
       .catch((error) => {
         console.log(`${query.name} error:`, error);

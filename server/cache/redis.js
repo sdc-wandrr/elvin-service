@@ -1,7 +1,7 @@
 const client = require('./client');
 
 const set = (key, val) => new Promise((resolve, reject) => {
-  client.set(key, val, (error, reply) => {
+  client.set(String(key), JSON.stringify(val), (error, reply) => {
     if (error) {
       reject(error);
     } else {
@@ -10,8 +10,8 @@ const set = (key, val) => new Promise((resolve, reject) => {
   });
 });
 
-const get = (key, val) => new Promise((resolve, reject) => {
-  client.get(key, val, (error, reply) => {
+const get = (key) => new Promise((resolve, reject) => {
+  client.get(String(key), (error, reply) => {
     if (error) {
       reject(error);
     } else {
@@ -22,7 +22,7 @@ const get = (key, val) => new Promise((resolve, reject) => {
 
 const setMulti = (records) => new Promise((resolve, reject) => {
   const batch = client.batch();
-  records.forEach((record) => batch.set(record.id, JSON.stringify(record)));
+  records.forEach((record) => batch.set(String(record.id), JSON.stringify(record)));
   batch.exec((error, replies) => {
     if (error) {
       reject(error);
@@ -32,5 +32,5 @@ const setMulti = (records) => new Promise((resolve, reject) => {
 });
 
 module.exports.set = set;
-module.exports.set = get;
+module.exports.get = get;
 module.exports.setMulti = setMulti;
