@@ -5,7 +5,6 @@ const getRecordsByIdRange = (id, range = 100) => {
   const mid = Math.floor(range / 2);
   const start = Number(id) - mid;
   const end = Number(id) + mid;
-  console.log('getRecordsByIdRange:', start, end);
   const q = {
     name: 'record-by-id',
     text: query,
