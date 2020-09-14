@@ -1,6 +1,6 @@
 const db = require('./client.js');
 
-const getRecordsByIdRange = (id, range = 10) => {
+const getRecordsByIdRange = (id, range = 2) => {
   const query = 'SELECT * FROM hostels WHERE id > $1 AND id < $2';
   const mid = Math.floor(range / 2);
   const start = Number(id) - mid;
