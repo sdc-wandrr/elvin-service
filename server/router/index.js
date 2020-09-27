@@ -5,12 +5,12 @@ const config = require('../config/router.js');
 const getCache = (id, query) => (
   cache.get(id)
     .then((getReply) => {
-      console.log('getCache cache hit:', getReply !== null);
+      // console.log('getCache cache hit:', getReply !== null);
       if (getReply !== null) return getReply;
       return query(id)
         .then((data) => (cache.setMulti(data.rows)
           .then((replies) => {
-            console.log('getCache query record count:', data.rows.length);
+            // console.log('getCache query record count:', data.rows.length);
             if (replies.length === data.rows.length) return cache.get(id);
             return JSON.stringify(data.rows[Math.floor(data.rows.length / 2)]);
           })));
@@ -35,7 +35,7 @@ const get = (query) => {
     query(req.params.id)
       .then((data) => {
         // console.log(`${query.name} data:`, data);
-        console.log('get recod count:', data.rows.length);
+        // console.log('get recod count:', data.rows.length);
         res.status(200).json(data.rows[Math.floor(data.rows.length / 2)]);
       })
       .catch((error) => {
