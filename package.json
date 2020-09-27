@@ -13,7 +13,7 @@
     "url": "git://github.com/hrr47-karev/property-info-service"
   },
   "scripts": {
-    "client-dev": "webpack -d --watch",
+    "client-dev": "webpack -d --config webpack.config.js --watch",
     "client-build": "webpack --config webpack.prod.js",
     "server": "node server/index.js",
     "server-dev": "nodemon server/index.js",
