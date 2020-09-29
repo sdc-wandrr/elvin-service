@@ -1,6 +1,8 @@
 const db = require('../database');
-const cache = require('../cache');
+
 const config = require('../config/router.js');
+
+const cache = config.CACHE_ENABLED ? require('../cache') : null;
 
 const getCache = (id, query) => (
   cache.get(id)
